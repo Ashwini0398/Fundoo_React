@@ -1,0 +1,61 @@
+@mixin  text($size,$width,$lign-height) {
+    font-size: $size;
+    font-weight: $width;
+    line-height: $lign-height;
+}
+@mixin  color($color) {
+    color: $color;
+}
+
+.reg-frame{
+    border: 2px solid #EDEEF0;
+    width: 50%;
+    height: 550px;
+    border-radius: 10px;
+    display: flex;
+    margin-top: 100px;
+}
+
+.reg-fundoo
+{
+    width: 20%;
+    margin: 48px 0px 0px 41px;
+    font-size: 25px;
+}
+.reg-fundoo-account{
+    margin-left: 40px;
+    margin-top: 15px;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.fundoo{
+    @include text(xx-large,640,1.5);
+}
+.f
+{
+    @include color(#4285F4);
+}
+.u
+{
+    @include color(#DB4437);
+}
+.n
+{
+    @include color(#F4B400);
+}
+.d
+{    
+    @include color (#4285F4);
+}
+.o
+{
+    @include color( #0F9D58);
+}
+
+.reg-cont{
+    flex-basis: 75%;
+}
+.logo-cont{
+    flex-basis: 35%;
+}
