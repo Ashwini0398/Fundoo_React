@@ -86,11 +86,3 @@ $margin-left: 23px;
         min-width: 445px;
     }
 }
-.reg-content-security{
-    display: flex;
-    @include flex(row,space-evenly);
-    margin-top: $margin-top;
-}
-.message{
-    margin-left: $margin-left;
-}

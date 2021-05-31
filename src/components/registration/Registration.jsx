@@ -28,11 +28,6 @@ export default class Registration extends Component {
                             <TextField id="username" label="UserName" variant="outlined" size="small" />
                             <span>You can use letters,numbers & periods</span>
                         </div>
-                        <div className="reg-content-security">
-                            <TextField id="password" label="Password" variant="outlined" size="small" />
-                            <TextField id="Confirm" label="Confirm Password" variant="outlined" size="small" />
-                        </div>
-                        <span className="message">Use 8 or more characters with a mix of letters, number & symbols</span>
                     </div>
                     <div>
                         <Checkbox inputProps={{ 'aria-label': 'uncontrolled-checkbox' }} />
