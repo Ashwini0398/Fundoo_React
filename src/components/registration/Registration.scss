@@ -81,8 +81,16 @@ $margin-left: 23px;
 }
 .reg-content-username{
     margin-top: $margin-top;
-    margin-left: $margin-left;
+    margin-left: 14px;
     #username{
-        min-width: 445px;
+        min-width: 435px;
     }
+}
+.reg-content-security{
+    display: flex;
+    @include flex(row,space-evenly);
+    margin-top: $margin-top;
+}
+.message{
+    margin-left: $margin-left;
 }
