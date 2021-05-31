@@ -19,7 +19,10 @@ export default class Registration extends Component {
                         Create Your Fundoo Account
                     </div>
                     </div>
-                    <div className="logo-cont">logo</div>
+                    <div className="logo-cont">
+                    <img src="https://ssl.gstatic.com/accounts/signup/glif/account.svg" alt="" />
+                    <span class="fig-caption">One account. All of Google working for you.</span>
+                    </div>
                 </div>
             </>
         );
