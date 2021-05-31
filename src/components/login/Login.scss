@@ -1,0 +1,33 @@
+// @import url("../registration/Registration.scss");
+
+
+.login-frame{
+   
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   
+}
+.login-form{
+    width: 380px;
+    border: 2px solid #EDEEF0;
+    height: 500px;
+    display: flex;
+    border-radius: 10px;
+    margin-top: 49px;
+
+}
+.login-cont{
+    height: 25%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .login-fundoo{
+        font-size: 30px;
+    }
+    .login-fundoo-account{
+
+    }
+}
