@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 // import { ButtonComp } from '../registration/Registration';
 import TextField from '@material-ui/core/TextField';
 import './Login.scss';
+import user_services from '../../services/userService';
 import Button from '@material-ui/core/Button';
 import {Redirect} from "react-router-dom"
 
-    let NameRegex = RegExp('^[A-Z]{1}[a-z]{2,}$');
+    let UserNameRegex = RegExp("^([a-zA-Z0-9]*[+._-]*[a-zA-Z0-9]+@[a-zA-Z]+.{3}[a-zA-z.]*[a-zA-z]{2})+$");
     let passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,15}$/;
     // let passwordRegex = RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,10}$");
 
@@ -15,9 +16,9 @@ export default class Login extends Component {
     constructor(props){
         super(props);
         this.state = {
-            fName: '',
+            uName: '',
             password: '',
-            fNameError: false,
+            uNameError: false,
             passwordError: false,
             redirect:'',
             flag:0
@@ -39,12 +40,12 @@ export default class Login extends Component {
     }
 
     onFNameChange = e => {
-        let validation = this.validationTest(NameRegex, e.target.value) === true ? false : true;
+        let validation = this.validationTest(UserNameRegex, e.target.value) === true ? false : true;
         this.setState({
-            fName : e.target.value,
-            fNameError : validation,
+            uName : e.target.value,
+            uNameError : validation,
             flag:1
-        },console.log(this.state.fNameError ," ",this.state.fName));
+        },console.log(this.state.uNameError ," ",this.state.uName));
     }
 
     onPasswordChange = e => {
@@ -58,9 +59,31 @@ export default class Login extends Component {
 
     Next = () =>{
         this.setState({
-            fNameError : this.validationTest(NameRegex, this.state.fName) === true ? false : true,
+            uNameError : this.validationTest(UserNameRegex, this.state.uName) === true ? false : true,
             passwordError : this.validationTest(passwordRegex, this.state.password) === true ? false : true
         });
+
+        if (this.state.flag === 1 
+            && !this.state.uNameError 
+            && !this.state.passwordError ) {
+            
+                let userData = {
+                    email: this.state.uName,
+                    password: this.state.password
+                };
+
+                user_services.login(userData).then((data) =>{
+                    console.log('data after register',data);
+                })
+                .catch(error=>{
+                    console.log('Error',error);
+                });
+        }
+        else{
+            this.setState({
+                matchPassword : true
+            });
+        }
     }
 
     regPage = () =>{

@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import TextField from '@material-ui/core/TextField';
 import './Registration.scss';
-import Checkbox from '@material-ui/core/Checkbox';
+import user_services from '../../services/userService';
 import Button from '@material-ui/core/Button';
 import {Redirect} from "react-router-dom"
 
 let NameRegex = RegExp('^[A-Z]{1}[a-z]{2,}$');
 let UserNameRegex = RegExp("^([a-zA-Z0-9]*[+._-]*[a-zA-Z0-9]+@[a-zA-Z]+.{3}[a-zA-z.]*[a-zA-z]{2})+$");
-let passwordRegex = RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,10}$");
+let passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,15}$/;
 
 
 export default class Registration extends Component {
@@ -93,7 +93,22 @@ export default class Registration extends Component {
             if(this.state.password === this.state.cPassword)
             {
                 console.log("validation successfull");
-            }else
+                let userData = {
+                    firstName: this.state.fName,
+                    lastName: this.state.lName,
+                    email: this.state.uName,
+                    password: this.state.password,
+                    service: 'advance',
+                };
+
+                user_services.register(userData).then((data) =>{
+                    console.log('data after register',data);
+                })
+                .catch(error=>{
+                    console.log('Error',error);
+                });
+            }
+            else
             {
                 this.setState({
                     matchPassword : true
@@ -103,47 +118,50 @@ export default class Registration extends Component {
     }
 
     onFNameChange = e => {
-        
+        let validation = this.validationTest(NameRegex, e.target.value) === true ? false : true;
         this.setState({
             fName : e.target.value,
-            fNameError : this.validationTest(NameRegex, this.state.fName) === true ? false : true,
+            fNameError : validation,
             flag:1
-        });
+        },console.log(this.state.fName));
     }
 
     onLNameChange = e => {
-        
+        let validation = this.validationTest(NameRegex, e.target.value) === true ? false : true;
         this.setState({
             lName : e.target.value,
             flag:1,
-            lNameError : this.validationTest(NameRegex, this.state.lName) === true ? false : true
-        });
+            lNameError : validation
+        },console.log(this.state.lName));
     }
 
     onUserChange = e => {
-        
+        let validation = this.validationTest(UserNameRegex, e.target.value) === true ? false : true;
         this.setState({
             uName : e.target.value,
             flag:1,
-            uNameError : this.validationTest(UserNameRegex, this.state.uName) === true ? false : true
-        });
+            uNameError : validation
+        },console.log(this.state.uName));
     }
 
     onPasswordChange = e => {
+        let validation = this.validationTest(passwordRegex, e.target.value) === true ? false : true;
         this.setState({
             password : e.target.value,
             flag:1,
-            passwordError : this.validationTest(passwordRegex, this.state.password) === true ? false : true
-        });
+            passwordError : validation
+        },console.log(this.state.password));
 
     }
 
     onCPasswordChange = e => {
+        let validation = this.validationTest(passwordRegex, e.target.value) === true ? false : true;
         this.setState({
             cPassword : e.target.value,
             flag:1,
-            cPasswordError : this.validationTest(passwordRegex, this.state.cPassword) === true ? false : true
-        });
+            cPasswordError : validation,
+            matchPassword : false
+        },console.log(this.state.cPassword));
     }
 
     signinPage = () =>{
