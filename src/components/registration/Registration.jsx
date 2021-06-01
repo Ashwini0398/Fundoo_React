@@ -3,6 +3,7 @@ import TextField from '@material-ui/core/TextField';
 import './Registration.scss';
 import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
+import {Redirect} from "react-router-dom"
 
 let NameRegex = RegExp('^[A-Z]{1}[a-z]{2,}$');
 let UserNameRegex = RegExp("^([a-zA-Z0-9]*[+._-]*[a-zA-Z0-9]+@[a-zA-Z]+.{3}[a-zA-z.]*[a-zA-z]{2})+$");
@@ -30,10 +31,11 @@ export default class Registration extends Component {
             cPasswordError: '',
             showPassword: false,
             flag:0,
-            matchPassword:false
+            matchPassword:false,
+            redirect:''
         }
     }
-    validationTest = (test, val, errorMsg) => {
+    validationTest = (test, val) => {
         let error
         if (test.test(val)) {
             console.log("Value", val);
@@ -144,7 +146,15 @@ export default class Registration extends Component {
         });
     }
 
+    signinPage = () =>{
+        this.setState({redirect: "/"});
+    }    
+
     render() {
+
+        if(this.state.redirect){
+            return <Redirect to ={this.state.redirect}/>
+        }
         let styles = {
             helperText: {
 
@@ -240,7 +250,7 @@ export default class Registration extends Component {
                                 <span>Show password</span>
                             </div>
 
-                            <div className="div-but-content"><span className="Text">Sign in Instead</span>
+                            <div className="div-but-content"><span className="Text Text-Redirect" onClick={this.signinPage}>Sign in Instead</span>
                                 <Button className="button" variant="contained" color="primary" href="#contained-buttons" onClick={this.Next}>
                                     Next
                                      </Button>
