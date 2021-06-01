@@ -13,8 +13,10 @@
     border: 2px solid #EDEEF0;
     height: 500px;
     display: flex;
+    flex-direction: column;
     border-radius: 10px;
     margin-top: 49px;
+    padding: 20px;
 
 }
 .login-cont{
@@ -30,4 +32,15 @@
     .login-fundoo-account{
 
     }
+}
+
+.login-input{
+    display:flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 250px;
+}
+
+.forget{
+    color:#3583EB;
 }
