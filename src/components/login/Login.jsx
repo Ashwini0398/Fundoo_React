@@ -6,7 +6,7 @@ import user_services from '../../services/userService';
 import Button from '@material-ui/core/Button';
 import {Redirect} from "react-router-dom"
 
-    let UserNameRegex = RegExp("^([a-zA-Z0-9]*[+._-]*[a-zA-Z0-9]+@[a-zA-Z]+.{3}[a-zA-z.]*[a-zA-z]{2})+$");
+    let UserNameRegex = /^([a-zA-Z0-9]*[+._-]*[a-zA-Z0-9]+@[a-zA-Z]+.{3}[a-zA-z.]*[a-zA-z]{2})+$/;
     let passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,15}$/;
     // let passwordRegex = RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,10}$");
 
@@ -39,14 +39,17 @@ export default class Login extends Component {
         }
     }
 
-    onFNameChange = e => {
+    
+
+    onUserChange = e => {
         let validation = this.validationTest(UserNameRegex, e.target.value) === true ? false : true;
         this.setState({
             uName : e.target.value,
-            uNameError : validation,
-            flag:1
-        },console.log(this.state.uNameError ," ",this.state.uName));
+            flag:1,
+            uNameError : validation
+        },console.log(this.state.uName));
     }
+
 
     onPasswordChange = e => {
         let validationPass = this.validationTest(passwordRegex, e.target.value) === true ? false : true;
@@ -124,13 +127,13 @@ export default class Login extends Component {
                     </div>
                     <div className="login-input">
                     <TextField 
-                        error={this.state.fNameError}
+                        error={this.state.uNameError}
                          id="userName"
                          type="text"
-                         name="fName"
+                         name="uName"
                         label="User Name"
                         variant="outlined" 
-                        onChange={e => this.onFNameChange(e)}
+                        onChange={e => this.onUserChange(e)}
                         helperText={this.state.fNameError ? "Enter first name" : ''}
                         FormHelperTextProps={{ style: styles.helperText }}
                         />

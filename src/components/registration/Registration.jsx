@@ -36,7 +36,6 @@ export default class Registration extends Component {
         }
     }
     validationTest = (test, val) => {
-        let error
         if (test.test(val)) {
             console.log("Value", val);
             console.log("test result", test.test(val));
@@ -53,31 +52,31 @@ export default class Registration extends Component {
 
     }
 
-    validation = () => {
-        let isError = false;
-        const errors = this.state;
-        errors.lNameError = this.validationTest(NameRegex, this.state.lName) === true ? false : true;
-        errors.fNameError = this.validationTest(NameRegex, this.state.fName) === true ? false : true;
-        errors.uNameError = this.validationTest(UserNameRegex, this.state.uName) === true ? false : true;
-        errors.passwordError = this.validationTest(passwordRegex, this.state.password) === true ? false : true;
-        errors.cPasswordError = this.validationTest(passwordRegex, this.state.cPassword) === true ? false : true;
+    // validation = () => {
+    //     let isError = false;
+    //     const errors = this.state;
+    //     errors.lNameError = this.validationTest(NameRegex, this.state.lName) === true ? false : true;
+    //     errors.fNameError = this.validationTest(NameRegex, this.state.fName) === true ? false : true;
+    //     errors.uNameError = this.validationTest(UserNameRegex, this.state.uName) === true ? false : true;
+    //     errors.passwordError = this.validationTest(passwordRegex, this.state.password) === true ? false : true;
+    //     errors.cPasswordError = this.validationTest(passwordRegex, this.state.cPassword) === true ? false : true;
 
-        if (errors.passwordError !== 0 && errors.cPasswordError !== 0) {
-            if (errors.passwordError !== errors.cPasswordError) {
-                errors.cPasswordError = "Passwords don't match.";
-                isError = true;
-            }
-        }
-        this.setState({
-            ...errors,
-        }, console.log(errors));
+    //     if (errors.passwordError !== 0 && errors.cPasswordError !== 0) {
+    //         if (errors.passwordError !== errors.cPasswordError) {
+    //             errors.cPasswordError = "Passwords don't match.";
+    //             isError = true;
+    //         }
+    //     }
+    //     this.setState({
+    //         ...errors,
+    //     }, console.log(errors));
 
-        return isError = errors.lNameError && errors.fNameError && errors.uNameError && errors.passwordError && errors.cPasswordError
+    //     return isError = errors.lNameError && errors.fNameError && errors.uNameError && errors.passwordError && errors.cPasswordError
 
-    }
+    // }
     Next = () => {
         this.setState({
-            fNameError : this.validationTest(NameRegex, this.state.fName) === true ? false : true,
+            fNameError : !this.validationTest(NameRegex, this.state.fName),
             lNameError : this.validationTest(NameRegex, this.state.lName) === true ? false : true,
             uNameError : this.validationTest(UserNameRegex, this.state.uName) === true ? false : true,
             passwordError : this.validationTest(passwordRegex, this.state.password) === true ? false : true,
@@ -103,6 +102,7 @@ export default class Registration extends Component {
 
                 user_services.register(userData).then((data) =>{
                     console.log('data after register',data);
+                    this.signinPage();
                 })
                 .catch(error=>{
                     console.log('Error',error);
