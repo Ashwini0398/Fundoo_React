@@ -16,6 +16,16 @@ class UserService{
        let url = baseURL+'user/userSignUp';
         return this.axios_service.post(url,data);
     }
+
+    addNotes(data){
+        let url = baseURL+'notes/addNotes';
+         return this.axios_service.post(url,data);
+     }
+
+     getAllNotes(){
+        let url = baseURL+'notes/getNotesList';
+        return this.axios_service.Get(url)
+    }
     
 }
 export default new UserService();

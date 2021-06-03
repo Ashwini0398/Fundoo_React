@@ -1,6 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
-import {fade, makeStyles, useTheme } from '@material-ui/core/styles';
+import { fade, makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -20,13 +20,16 @@ import MailIcon from '@material-ui/icons/Mail';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
 import Avatar from '@material-ui/core/Avatar';
-import ArchiveRoundedIcon from '@material-ui/icons/ArchiveRounded';
-import DeleteForeverRoundedIcon from '@material-ui/icons/DeleteForeverRounded';
+import ArchiveOutlinedIcon from '@material-ui/icons/ArchiveRounded';
+import DeleteOutlinedIcon from '@material-ui/icons/DeleteForeverRounded';
 import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
-import EditRoundedIcon from '@material-ui/icons/EditRounded';
-import EmojiObjectsRoundedIcon from '@material-ui/icons/EmojiObjectsRounded';
+import EditOutlinedIcon from '@material-ui/icons/EditRounded';
+import EmojiObjectsIcon from '@material-ui/icons/EmojiObjectsRounded';
 import AddAlertRoundedIcon from '@material-ui/icons/AddAlertRounded';
 import './Header.scss'
+import Createnotes from '../createNotes/Createnotes';
+//import Displaynotes from '../displayNotes/Displaynotes';
+import NoteMaker from '../noteMaker/NoteMaker';
 
 const drawerWidth = 240;
 
@@ -35,10 +38,13 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
   },
   appBar: {
+    borderBottom: '1px solid #BDBDBD',
     zIndex: theme.zIndex.drawer + 1,
+    boxShadow: '0px 0px 0px 0px !important',
     transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
+
     }),
   },
   appBarShift: {
@@ -53,9 +59,10 @@ const useStyles = makeStyles((theme) => ({
     color: 'black',
     marginRight: 13,
   },
- 
+
   drawer: {
     width: drawerWidth,
+
     flexShrink: 0,
     whiteSpace: 'nowrap',
   },
@@ -67,6 +74,7 @@ const useStyles = makeStyles((theme) => ({
     }),
   },
   drawerClose: {
+    border: '0px !important',
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
@@ -104,9 +112,8 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: '8px',
     [theme.breakpoints.up('sm')]: {
       marginLeft: theme.spacing(1),
-      width: '52%',
-      marginLeft: '91px',
-      height: '46px',
+      width: '67%',
+      height: '55px',
     },
   },
   searchIcon: {
@@ -122,13 +129,13 @@ const useStyles = makeStyles((theme) => ({
     color: 'inherit',
   },
   inputInput: {
-    padding: theme.spacing(1, 1, 1, 0),
+    padding: theme.spacing(2, 1, 1, 0),
     // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
     transition: theme.transitions.create('width'),
     width: '100%',
     [theme.breakpoints.up('sm')]: {
-      width: '12ch',
+      width: '74ch',
       '&:focus': {
         width: '20ch',
       },
@@ -148,6 +155,40 @@ export default function MiniDrawer() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  function changeContent(e, text) {
+    e.stopPropagation();
+    switch (text) {
+      case 'Trash':
+        break;
+      case 'Notes':
+
+        break;
+      case 'Archive':
+        break;
+      default:
+        break;
+    }
+
+  }
+  function icon(index) {
+    switch (index) {
+    case 0:
+    return (<ListItemIcon > <EmojiObjectsIcon /> </ListItemIcon>)
+    case 1:
+    return <ListItemIcon > <NotificationsNoneIcon /> </ListItemIcon>
+    case 2:
+    return <ListItemIcon > <EditOutlinedIcon /> </ListItemIcon>
+    case 3:
+    return <ListItemIcon > <ArchiveOutlinedIcon /> </ListItemIcon>
+    case 4:
+    return <ListItemIcon > <DeleteOutlinedIcon /> </ListItemIcon>
+    
+    default:
+    return <ListItemIcon > <MailIcon /> </ListItemIcon>
+    }
+    }
+
 
   return (
     <div className={classes.root}>
@@ -170,9 +211,9 @@ export default function MiniDrawer() {
           >
             <MenuIcon />
           </IconButton>
-          <img className="imgKeep"  src="https://www.gstatic.com/images/branding/product/1x/keep_2020q4_48dp.png" alt="" ></img>
+          <img className="imgKeep" src="https://www.gstatic.com/images/branding/product/1x/keep_2020q4_48dp.png" alt="" ></img>
           <Typography className="text" variant="h6" noWrap>
-            Fundoo Notes
+            Fundoo
           </Typography>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
@@ -188,6 +229,7 @@ export default function MiniDrawer() {
             />
           </div>
           <Avatar className="profilepic" alt="Ashwini" src="/static/images/avatar/3.jpg" />
+
         </Toolbar>
       </AppBar>
       <Drawer
@@ -208,40 +250,27 @@ export default function MiniDrawer() {
             {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </IconButton>
         </div>
-        <Divider />
-          <ListItem button key={'Notes'}  className={classes.sideIcon}>
-            <ListItemIcon><EmojiObjectsRoundedIcon /></ListItemIcon>
-            <ListItemText primary={'Notes'}/>
-          </ListItem>
-          <ListItem button key={'Remainders'} className={classes.sideIcon}>
-            <ListItemIcon><NotificationsNoneIcon/></ListItemIcon>
-            <ListItemText primary={'Remainders'}/>
-          </ListItem>
-          <ListItem button key={'Editlabels'}  className={classes.sideIcon}>
-            <ListItemIcon><EditRoundedIcon/></ListItemIcon>
-            <ListItemText primary={'Edit labels'}/>
-          </ListItem>
-          <ListItem button key={'Archive'}  className={classes.sideIcon}>
-            <ListItemIcon>
-            <ArchiveRoundedIcon/>
-            </ListItemIcon>
-            <ListItemText primary={'Archive'}/>
-          </ListItem>
-          <ListItem button key={'Trash'} className={classes.sideIcon}>
-            <ListItemIcon><DeleteForeverRoundedIcon/></ListItemIcon>
-            <ListItemText primary={'Trash'}/>
-          </ListItem>
-        {/* <List>
-          {['Notes', 'Reminders', 'Edit Labels', 'Archive','Trash'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index % 5 === 0 ? <EmojiObjectsRoundedIcon /> : <AddAlertRoundedIcon /> : <EditRoundedIcon />}</ListItemIcon>
+        <List onMouseEnter={handleDrawerOpen} onMouseLeave={handleDrawerClose} >
+          {['Notes', 'Reminder', 'Edit labels', 'Archive', 'Trash'].map((text, index) => (
+            <ListItem button key={text} onClick={e => changeContent(e, text)}>
+              {icon(index)}
               <ListItemText primary={text} />
             </ListItem>
           ))}
-        </List> */}
+        </List>
       </Drawer>
+      <div className="create">
+        <Createnotes/>
+        
+          <NoteMaker/>
+        
+      </div>
+      
       <main className={classes.content}>
         <div className={classes.toolbar} />
+        <div>
+
+        </div>
 
       </main>
     </div>

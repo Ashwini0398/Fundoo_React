@@ -11,3 +11,11 @@ axios_service.prototype.post =  function(url,data){
       },
     });
 }
+
+axios_service.prototype.Get =  function(url){
+  return axios.get(url,{
+      headers: {
+        Authorization: localStorage.getItem('token')
+      },
+    });
+  }

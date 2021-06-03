@@ -77,6 +77,7 @@ export default class Login extends Component {
 
                 user_services.login(userData).then((data) =>{
                     console.log('data after register',data);
+                    localStorage.setItem('token', data.data.id);
                     this.redirectToDashboard();
                 })
                 .catch(error=>{
@@ -154,7 +155,11 @@ export default class Login extends Component {
                         helperText={this.state.passwordError ? "Enter Password" : ''}
                         FormHelperTextProps={{ style: styles.helperText }}
                         />
+                    <div className="pwdchange">
                     <span className="forget">Forget Password?</span>
+                    <span className="forget">Reset Password?</span>
+                    </div>
+
                     </div>
                     <div className="div-but-content"><span className="Text Text-Cont" onClick={this.regPage}>Create Account</span>
                                     <Button className="button" variant="contained" color="primary" href="#contained-buttons" onClick={this.Next}>

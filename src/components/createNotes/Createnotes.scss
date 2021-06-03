@@ -1,0 +1,65 @@
+.takenote{
+    border-radius: 8px;
+    height: 60px;
+    width: 534px;
+    box-shadow: 1px 3px 9px 0px #888888;
+    display: flex;
+}
+.input-feild
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.takenote-open{
+    height: 200px;
+    padding-left: 10px;
+}
+.input-feild-open{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    height: 60px;
+}
+.input-title-note{
+    width: 500px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.pin-inp{
+    height: 30px;
+}
+.inputText{
+    border: 0px;
+    font-size: 17px;
+    width: 429px;
+    padding-left: 10px;
+    
+}
+
+.imgIconClose{
+    width: 100px;
+    display: flex;
+    justify-content: space-between;
+}
+.icon-open{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding-top: 10px;
+
+    .icon-open-content{
+        width: 56%;
+        display: flex;
+        justify-content: space-between;
+
+    }
+    .icon-open-close{
+        cursor: pointer;
+        width: 12%;
+        font-weight: inherit;
+
+    }
+}

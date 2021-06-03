@@ -39,9 +39,16 @@
 }
 
 .forget{
+    cursor: pointer;
     color:#3583EB;
 }
 
 .Text-Cont{
+    cursor: pointer;
     margin: 0px !important;
+   
+}
+.pwdchange{
+    display: flex; 
+    justify-content: space-between;
 }
