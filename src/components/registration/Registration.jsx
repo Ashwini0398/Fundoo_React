@@ -77,10 +77,10 @@ export default class Registration extends Component {
     Next = () => {
         this.setState({
             fNameError : !this.validationTest(NameRegex, this.state.fName),
-            lNameError : this.validationTest(NameRegex, this.state.lName) === true ? false : true,
-            uNameError : this.validationTest(UserNameRegex, this.state.uName) === true ? false : true,
-            passwordError : this.validationTest(passwordRegex, this.state.password) === true ? false : true,
-            cPasswordError : this.validationTest(passwordRegex, this.state.cPassword) === true ? false : true
+            lNameError : !this.validationTest(NameRegex, this.state.lName) ,            
+            uNameError : !this.validationTest(UserNameRegex, this.state.uName),
+            passwordError : !this.validationTest(passwordRegex, this.state.password) ,
+            cPasswordError :!this.validationTest(passwordRegex, this.state.cPassword)
         });
         // console.log("validation---", isValidated);
         if (this.state.flag === 1 
@@ -121,7 +121,7 @@ export default class Registration extends Component {
         let validation = this.validationTest(NameRegex, e.target.value) === true ? false : true;
         this.setState({
             fName : e.target.value,
-            fNameError : validation,
+            // fNameError : validation,
             flag:1
         },console.log(this.state.fName));
     }
@@ -131,7 +131,7 @@ export default class Registration extends Component {
         this.setState({
             lName : e.target.value,
             flag:1,
-            lNameError : validation
+            // lNameError : validation
         },console.log(this.state.lName));
     }
 
@@ -140,7 +140,7 @@ export default class Registration extends Component {
         this.setState({
             uName : e.target.value,
             flag:1,
-            uNameError : validation
+            // uNameError : validation
         },console.log(this.state.uName));
     }
 
@@ -149,7 +149,7 @@ export default class Registration extends Component {
         this.setState({
             password : e.target.value,
             flag:1,
-            passwordError : validation
+            // passwordError : validation
         },console.log(this.state.password));
 
     }
@@ -159,7 +159,7 @@ export default class Registration extends Component {
         this.setState({
             cPassword : e.target.value,
             flag:1,
-            cPasswordError : validation,
+            // cPasswordError : validation,
             matchPassword : false
         },console.log(this.state.cPassword));
     }
@@ -184,7 +184,7 @@ export default class Registration extends Component {
         }
 
         return (
-            <>
+            <div className="reg-root">
                 <div className="reg-frame">
                     <div className="reg-cont">
                         <div className="reg-fundoo">
@@ -284,7 +284,7 @@ export default class Registration extends Component {
                         <span class="fig-caption">One account. All of Fundoo working for you.</span>
                     </div>
                 </div>
-            </>
+            </div>
         );
     }
 }

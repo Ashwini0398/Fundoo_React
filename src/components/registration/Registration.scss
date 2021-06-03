@@ -15,7 +15,12 @@ $margin-left: 40px;
     flex-direction: $direction;
     justify-content: $j-content;
 }
-
+.reg-root{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 700px;
+}
 .reg-frame{
     border: 2px solid #EDEEF0;
     height: 680px;

@@ -77,6 +77,7 @@ export default class Login extends Component {
 
                 user_services.login(userData).then((data) =>{
                     console.log('data after register',data);
+                    this.redirectToDashboard();
                 })
                 .catch(error=>{
                     console.log('Error',error);
@@ -92,6 +93,10 @@ export default class Login extends Component {
     regPage = () =>{
         this.setState({redirect: "/Registration"});
     }    
+    
+    redirectToDashboard() {
+        this.setState({redirect: "/Dashboard"});
+    }
     render() {
         if(this.state.redirect){
             return <Redirect to ={this.state.redirect}/>
