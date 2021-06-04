@@ -14,7 +14,7 @@ constructor(props)
 
 
 note=(val)=>{
-    return( <Displaynotes value={val}/>)
+    return( <Displaynotes value={val} get = {this.props.get}/>)
 }
 
 
@@ -23,7 +23,9 @@ note=(val)=>{
         return (
             <>
             <div className="note-disp">
-               {this.props.value.map(this.note)}
+               {this.props.value.filter((element) => {
+                        return element.isArchived === false && element.isDeleted === false;
+                    }).reverse().map(this.note)}
             </div>
             </>
         );

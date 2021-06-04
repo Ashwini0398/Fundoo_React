@@ -1,9 +1,8 @@
 .disp-note{
         
-        display: flex;
-        width: 37%;
-        height: 32%;
-        padding: 36px 8px 18px 15px;
+    display: flex;
+    padding: 36px 8px 18px 15px;
+    flex-direction: column;
 }
 .note{
     height: 120px;
@@ -11,4 +10,30 @@
     width: 240px;
     border-radius: 5px;
     padding: 5px;
+}
+.title-pin
+{
+    display: flex;
+}
+.pin-inp{
+    display:none;
+    height: 20px;
+    margin-left: 160px;
+}
+
+.disp-icn{
+    display: none;
+    margin-top: 40px;
+}
+
+.disp-note :hover .disp-icn 
+{
+   display: block; 
+   color:#292a2b;
+}
+
+.disp-note :hover .pin-inp
+{
+   display: block; 
+   color:#292a2b;
 }

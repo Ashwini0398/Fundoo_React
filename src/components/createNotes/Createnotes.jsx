@@ -4,14 +4,10 @@ import BrushIcon from '@material-ui/icons/Brush';
 import './Createnotes.scss';
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
-import AddAlertOutlinedIcon from '@material-ui/icons/AddAlertOutlined';
-import PersonAddOutlinedIcon from '@material-ui/icons/PersonAddOutlined';
-import PaletteOutlinedIcon from '@material-ui/icons/PaletteOutlined';
 import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined';
-import ArchiveOutlinedIcon from '@material-ui/icons/ArchiveOutlined';
-import MoreVertOutlinedIcon from '@material-ui/icons/MoreVertOutlined';
 import pin from '../../assests/pin.svg';
 import user_services from '../../services/userService';
+import Icons from '../Icons/Icons';
 
 const styles = {
     underline: {
@@ -49,11 +45,17 @@ class Createnotes extends Component {
             open: false
         })
     }
+
+    
+
     handleClickClose=()=>{
         let userData={
         title: this.state.title,
         description: this.state.note
         };
+
+    
+    
 
     if(this.state.title !== "" && this.state.description !== ""){
         console.log("success");
@@ -133,15 +135,9 @@ class Createnotes extends Component {
                                 onChange={this.handleInput} />
                         </div>
                         <div className="icon-open">
-                            <div className="icon-open-content">
-                            <AddAlertOutlinedIcon/>
-                            <PersonAddOutlinedIcon/>
-                            <PaletteOutlinedIcon/>
-                            <PaletteOutlinedIcon/>
-                            <ImageOutlinedIcon/>
-                            <ArchiveOutlinedIcon/>
-                            <MoreVertOutlinedIcon/>
-                            </div>
+                        <div className="icon-open-content">
+                            <Icons/>
+                        </div>
                             <div onClick={this.handleClickClose} className="icon-open-close">Close</div>
 
                         </div>

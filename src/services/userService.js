@@ -27,5 +27,21 @@ class UserService{
         return this.axios_service.Get(url)
     }
     
+    addNotes(data){
+        let url = baseURL+'notes/addNotes';
+         return this.axios_service.post(url,data);
+     }
+
+     changeColor(data) 
+    {
+        let url = baseURL+'notes/changesColorNotes';
+        return this.axios_service.post(url,data);
+    }
+
+    deleteNote(data){
+        let url = baseURL+'notes/trashNotes';
+        return this.axios_service.post(url,data);
+    }
+
 }
 export default new UserService();

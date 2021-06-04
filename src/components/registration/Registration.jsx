@@ -51,29 +51,6 @@ export default class Registration extends Component {
         this.setState({ showpassword: !this.state.showpassword })
 
     }
-
-    // validation = () => {
-    //     let isError = false;
-    //     const errors = this.state;
-    //     errors.lNameError = this.validationTest(NameRegex, this.state.lName) === true ? false : true;
-    //     errors.fNameError = this.validationTest(NameRegex, this.state.fName) === true ? false : true;
-    //     errors.uNameError = this.validationTest(UserNameRegex, this.state.uName) === true ? false : true;
-    //     errors.passwordError = this.validationTest(passwordRegex, this.state.password) === true ? false : true;
-    //     errors.cPasswordError = this.validationTest(passwordRegex, this.state.cPassword) === true ? false : true;
-
-    //     if (errors.passwordError !== 0 && errors.cPasswordError !== 0) {
-    //         if (errors.passwordError !== errors.cPasswordError) {
-    //             errors.cPasswordError = "Passwords don't match.";
-    //             isError = true;
-    //         }
-    //     }
-    //     this.setState({
-    //         ...errors,
-    //     }, console.log(errors));
-
-    //     return isError = errors.lNameError && errors.fNameError && errors.uNameError && errors.passwordError && errors.cPasswordError
-
-    // }
     Next = () => {
         this.setState({
             fNameError : !this.validationTest(NameRegex, this.state.fName),
@@ -289,16 +266,3 @@ export default class Registration extends Component {
     }
 }
 
-// export class ButtonComp extends Component{
-//     render() {
-//         return(
-
-//             <div className="div-but-content"><span className="Text">Sign in Instead</span>
-//                                     <Button className="button" variant="contained" color="primary" href="#contained-buttons" onClick={this.Next()}>
-//                                         Next
-//                                      </Button>
-//                                 </div>
-
-//         );
-//     }
-// }

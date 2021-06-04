@@ -11,8 +11,12 @@ class GetNote extends Component {
         this.state={
             notes:[]
         }
-        this.getNotes();
+        // this.getNotes();
     }
+
+    componentDidMount() {
+        this.getNotes();
+      }
     
     getNotes = () =>{
         user_services.getAllNotes().then((data) =>{
@@ -30,7 +34,7 @@ class GetNote extends Component {
         return (
             <div className="create">
                 <Createnotes get={this.getNotes}/>
-                <NoteMaker value={this.state.notes}/>
+                <NoteMaker value={this.state.notes} get={this.getNotes}/>
             </div>
 
         );
