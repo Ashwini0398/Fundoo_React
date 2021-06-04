@@ -9,36 +9,21 @@ class NoteMaker extends Component {
 constructor(props)
 {
     super(props);
-    this.state={
-        notes:[]
-    }
-    
-    this.getNotes();
 
 }
 
-getNotes = () =>{
-    user_services.getAllNotes().then((data) =>{
-        console.log(data);
-        this.setState({
-            notes:data.data.data.data
-        });
-        
-
-    }).catch(error=>{
-      console.log("error",error);
-    })
-}
 
 note=(val)=>{
     return( <Displaynotes value={val}/>)
 }
 
+
     render() {
+        // console.log(this.props.value);
         return (
             <>
             <div className="note-disp">
-              {this.state.notes.map(this.note)}
+               {this.props.value.map(this.note)}
             </div>
             </>
         );

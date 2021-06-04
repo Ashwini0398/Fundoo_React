@@ -30,7 +30,7 @@ import './Header.scss'
 import Createnotes from '../createNotes/Createnotes';
 //import Displaynotes from '../displayNotes/Displaynotes';
 import NoteMaker from '../noteMaker/NoteMaker';
-
+import GetNotes from './GetNote';
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -259,13 +259,8 @@ export default function MiniDrawer() {
           ))}
         </List>
       </Drawer>
-      <div className="create">
-        <Createnotes/>
-        
-          <NoteMaker/>
-        
-      </div>
       
+      <GetNotes/>
       <main className={classes.content}>
         <div className={classes.toolbar} />
         <div>

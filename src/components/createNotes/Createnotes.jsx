@@ -32,8 +32,8 @@ const styles = {
 
 class Createnotes extends Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.state = {
             open: true,
@@ -65,7 +65,7 @@ class Createnotes extends Component {
                 note: "",
                 responce: true
               },()=>{console.log(this.state);})
-            
+            this.props.get();
         })
         .catch(error=>{
             this.setState({
