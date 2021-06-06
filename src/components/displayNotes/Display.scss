@@ -1,3 +1,18 @@
+@mixin  input($bottom,$top,$size) {
+    margin-bottom: $bottom;
+    margin-top: $top;
+    font-size: $size;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    /* justify-content: flex-start; */
+    overflow-wrap: anywhere;
+    text-align: left;
+    max-height: 330px;
+    justify-content: space-between;
+    width: 230px;
+}
+
 .disp-note{
         
     display: flex;
@@ -5,20 +20,32 @@
     flex-direction: column;
 }
 .note{
-    height: 120px;
-    border: 1.5px solid #b7b8c0;
     width: 240px;
-    border-radius: 5px;
-    padding: 5px;
+    min-height: 145px;
+    max-height: 350px;
+    border-radius: 8px;
+    padding: 8px;
+    margin: 10px;
+    box-shadow: 1px 2px 6px 2px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    overflow: scroll;
+}
+.title-note{
+    @include input(5px,0px,large);
+}
+.description-note{
+    @include input(0px,5px,larger);
 }
 .title-pin
 {
-    display: flex;
+    @include input(5px,0px,large);
 }
 .pin-inp{
     display:none;
     height: 20px;
-    margin-left: 160px;
 }
 
 .disp-icn{

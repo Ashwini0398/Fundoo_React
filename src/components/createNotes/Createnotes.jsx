@@ -20,7 +20,12 @@ const styles = {
     },
     widthInp : {
         "& .MuiInput-underline:before": {
-            position: 'fixed'
+            position: 'fixed',
+            height:'50px'
+        },
+        "& .MuiInput-underline:after": {
+            position: 'fixed',
+            height:'50px'
         },
         width : '500px'
     }
@@ -99,7 +104,7 @@ class Createnotes extends Component {
         const { classes } = this.props;
         return (
             <>
-            {this.state.open ? (
+          {this.state.open ? (
                 <div className="takenote" onClick={this.handleClick}>
                     <div className="input-feild"  >
                         <div className="inputText" type="text" >Take a Note...</div>
@@ -117,9 +122,8 @@ class Createnotes extends Component {
                             <TextField 
                                 id="standard-multiline-flexible" 
                                 className={classes.underline,classes.widthInp}
-                                label="Title" 
                                 name="title"
-                                multiline rowsMax={4} 
+                                multiline rowsMax={2} 
                                 placeholder="Title"
                                 onChange={this.handleInput} />
                             <img src={pin} className="pin-inp" alt="" />
@@ -128,9 +132,8 @@ class Createnotes extends Component {
                             <TextField 
                                 id="standard-multiline-flexible" 
                                 className={classes.underline,classes.widthInp}
-                                label="Take a note" 
                                 name="note"
-                                multiline rowsMax={4} 
+                                multiline rowsMax={2} 
                                 placeholder="Note"
                                 onChange={this.handleInput} />
                         </div>

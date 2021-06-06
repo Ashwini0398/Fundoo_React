@@ -6,8 +6,11 @@ import {
   Route,
   Link
 } from "react-router-dom";
+import {ProtectedRoute} from '../src/services/auth/protectedRoutes';
 import Registration from './components/registration/Registration';
 import Dashboard from './components/dashboard/Dashboard';
+import Trash from '../src/components/trash/trash';
+import Archive from '../src/components/archive/archive';
 
 
 function App() {
@@ -17,7 +20,12 @@ function App() {
     <Switch>  
     <Route exact path="/" component={Login}/>
     <Route exact path="/Registration" component={Registration}/>
-    <Route exact path="/Dashboard" component={Dashboard}/>
+    <ProtectedRoute path={'/dashboard'} component={Dashboard} />
+    {/* <BrowserRouter>
+            <ProtectedRoute	path={"/dashboard/notes"} component={Dashboard}/>
+            <ProtectedRoute	path={"/dashboard/trash"} component={Trash}/>
+            <ProtectedRoute	path={"/dashboard/archive"} component={Archive}/>
+    </BrowserRouter> */}
     </Switch>
     {/* <Login/> */}
  

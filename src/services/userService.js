@@ -43,5 +43,20 @@ class UserService{
         return this.axios_service.post(url,data);
     }
 
+    archiveNote(data){
+        let url = baseURL+'notes/archiveNotes';
+        return this.axios_service.post(url,data);
+    }
+
+    forgetpassword =(data)=>{
+        let url = baseURL+'user/reset';
+        return this.axios_service.post(url,data);
+    }
+
+    updateNote(data) 
+    {
+        let url = baseURL+'notes/updateNotes';
+        return this.axios_service.post(url,data);
+    }
 }
 export default new UserService();

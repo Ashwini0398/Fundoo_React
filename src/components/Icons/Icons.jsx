@@ -5,6 +5,7 @@ import PersonAddOutlinedIcon from '@material-ui/icons/PersonAddOutlined';
 import PaletteOutlinedIcon from '@material-ui/icons/PaletteOutlined';
 import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined';
 import ArchiveOutlinedIcon from '@material-ui/icons/ArchiveOutlined';
+import UnarchiveOutlinedIcon from '@material-ui/icons/UnarchiveOutlined';
 import MoreVertOutlinedIcon from '@material-ui/icons/MoreVertOutlined';
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
@@ -35,13 +36,14 @@ class Icons extends Component {
     }
 
     onSetColor=(color)=>{
+
         let Data = {
             color: color.code,
-            noteIdList: [this.props.val]
+            noteIdList: [this.props.val.id]
         };
         user_services.changeColor(Data).then((data) =>{
             console.log('Color Note',data);
-            this.props.getAllNotes();
+            this.props.get();
           }).catch(error=>{
             console.log('Color error',error);
         })
@@ -60,15 +62,17 @@ class Icons extends Component {
                 </div>
                 <div className="note-icons-hover">
                         <Popper putColor={(Data) => {
-                            this.onSetColor(Data)
+                            this.onSetColor(Data);
                             }} />
                 </div>
                 <div className="note-icons-hover">
                         <ImageOutlinedIcon className="i-disp"/>
                 </div>
                 <div className="note-icons-hover">
-                        <ArchiveOutlinedIcon className="i-disp"/>
-                </div>
+                            <ArchiveOutlinedIcon className="i-disp" onClick={()=>{
+                                this.props.archive()
+                            }}/>
+                    </div>
             <div>
                 <div className="note-icons-hover">
                         <MoreVertOutlinedIcon className="i-disp" onClick={this.menuClick}/>

@@ -26,11 +26,22 @@ import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
 import EditOutlinedIcon from '@material-ui/icons/EditRounded';
 import EmojiObjectsIcon from '@material-ui/icons/EmojiObjectsRounded';
 import AddAlertRoundedIcon from '@material-ui/icons/AddAlertRounded';
+import user_services from '../../services/userService'; 
 import './Header.scss'
 import Createnotes from '../createNotes/Createnotes';
 //import Displaynotes from '../displayNotes/Displaynotes';
 import NoteMaker from '../noteMaker/NoteMaker';
-import GetNotes from './GetNote';
+import { useEffect } from 'react';
+import Trash from '../trash/trash';
+import Archive from '../archive/archive';
+import {
+  BrowserRouter,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+import {ProtectedRoute} from '../../services/auth/protectedRoutes';
+// import GetNotes from './GetNote';
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -146,6 +157,21 @@ const useStyles = makeStyles((theme) => ({
 export default function MiniDrawer() {
   const classes = useStyles();
   const theme = useTheme();
+  const [notes, setNotes] = React.useState([]);
+
+  useEffect(() => {
+    getNotes();
+  },[]);
+
+  const getNotes = () =>{
+    user_services.getAllNotes().then((data) =>{
+        console.log(data);
+        setNotes(data.data.data.data);        
+
+    }).catch(error=>{
+      console.log("error",error);
+    })
+}
   const [open, setOpen] = React.useState(false);
 
   const handleDrawerOpen = () => {
@@ -171,23 +197,21 @@ export default function MiniDrawer() {
     }
 
   }
-  function icon(index) {
+  function icon(index){
     switch (index) {
     case 0:
-    return (<ListItemIcon > <EmojiObjectsIcon /> </ListItemIcon>)
+    return (<Link to="/dashboard/notes"><ListItemIcon > <EmojiObjectsIcon /> </ListItemIcon></Link>)
     case 1:
-    return <ListItemIcon > <NotificationsNoneIcon /> </ListItemIcon>
+    return (<ListItemIcon > <NotificationsNoneIcon /> </ListItemIcon>)
     case 2:
-    return <ListItemIcon > <EditOutlinedIcon /> </ListItemIcon>
+    return (<ListItemIcon > <EditOutlinedIcon /> </ListItemIcon>)
     case 3:
-    return <ListItemIcon > <ArchiveOutlinedIcon /> </ListItemIcon>
+    return (<Link to="/dashboard/archive" ><ListItemIcon > <ArchiveOutlinedIcon /> </ListItemIcon> </Link>)
     case 4:
-    return <ListItemIcon > <DeleteOutlinedIcon /> </ListItemIcon>
-    
+    return (<Link to="/dashboard/trash" ><ListItemIcon > <DeleteOutlinedIcon /> </ListItemIcon></Link>)
     default:
-    return <ListItemIcon > <MailIcon /> </ListItemIcon>
-    }
-    }
+    return (<Link to="/dashboard/notes" ><ListItemIcon > <MailIcon /> </ListItemIcon></Link>)
+    }}
 
 
   return (
@@ -260,7 +284,47 @@ export default function MiniDrawer() {
         </List>
       </Drawer>
       
-      <GetNotes/>
+     
+      
+      
+      <div>
+          <Switch>
+									<ProtectedRoute
+									 exact path={"/dashboard"}
+										component={NoteMaker}
+									>
+                     <div className="create">
+                    <Createnotes get={getNotes}/>
+                    <NoteMaker value={notes} get={getNotes}/>
+                    </div>
+                  </ProtectedRoute>
+                  <ProtectedRoute
+									 exact path={"/dashboard/notes"}
+										component={NoteMaker}
+									>
+                     <div className="create">
+                    <Createnotes get={getNotes}/>
+                    <NoteMaker value={notes} get={getNotes}/>
+                    </div>
+                  </ProtectedRoute>
+                  <ProtectedRoute
+									 exact path={"/dashboard/trash"}
+										component={Trash}
+									>
+                    <div className="create"> 
+                  <Trash value={notes} get={getNotes}/>
+                  </div>
+                  </ProtectedRoute>
+                  <ProtectedRoute
+									 exact path={"/dashboard/archive"}
+										component={Archive}> 
+                    <div className="create"> 
+                  <Archive value={notes} get={getNotes}/>
+                  </div>
+                  </ProtectedRoute>
+                  
+					</Switch>
+      </div>
       <main className={classes.content}>
         <div className={classes.toolbar} />
         <div>

@@ -1,3 +1,6 @@
+::-webkit-scrollbar {
+    display: none;
+  }
 .takenote{
     border-radius: 8px;
     height: 60px;
@@ -12,7 +15,7 @@
     align-items: center;
 }
 .takenote-open{
-    height: 160px;
+    height: 180px;
     padding-left: 10px;
 }
 .input-feild-open{
@@ -20,13 +23,14 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: flex-start;
-    height: 60px;
+    height: 100%;
 }
 .input-title-note{
     width: 500px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-top: 8px;
 }
 .pin-inp{
     height: 30px;

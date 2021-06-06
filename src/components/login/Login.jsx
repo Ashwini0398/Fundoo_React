@@ -46,7 +46,7 @@ export default class Login extends Component {
         this.setState({
             uName : e.target.value,
             flag:1,
-            uNameError : validation
+            // uNameError : validation
         },console.log(this.state.uName));
     }
 
@@ -56,7 +56,7 @@ export default class Login extends Component {
         this.setState({
             password : e.target.value,
             flag:1,
-            passwordError : validationPass
+            // passwordError : validationPass
         },console.log(this.state.passwordError ," ",this.state.password));
     }
 
