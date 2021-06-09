@@ -52,3 +52,17 @@
     display: flex; 
     justify-content: space-between;
 }
+
+@media screen and (width: 360px) {
+    .login-form{ 
+        height: 600px;
+        margin-top: 0px;
+    }
+  }
+
+  @media screen and (width: 411px) {
+    .login-form{  
+        height: 735px;
+        margin-top: 0px;   
+    }
+  }

@@ -8,9 +8,7 @@ import {Redirect} from "react-router-dom"
 
     let UserNameRegex = /^([a-zA-Z0-9]*[+._-]*[a-zA-Z0-9]+@[a-zA-Z]+.{3}[a-zA-z.]*[a-zA-z]{2})+$/;
     let passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,15}$/;
-    // let passwordRegex = RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,10}$");
-
-
+    
 export default class Login extends Component {
 
     constructor(props){
@@ -78,6 +76,9 @@ export default class Login extends Component {
                 user_services.login(userData).then((data) =>{
                     console.log('data after register',data);
                     localStorage.setItem('token', data.data.id);
+                    localStorage.setItem('email', data.data.email);
+                    localStorage.setItem('first', data.data.firstName);
+                    localStorage.setItem('last', data.data.lastName);
                     this.redirectToDashboard();
                 })
                 .catch(error=>{
@@ -90,7 +91,9 @@ export default class Login extends Component {
             });
         }
     }
-
+    forgetPassword=()=>{
+        this.setState({redirect: "/ForgetPassword"});   
+    }
     regPage = () =>{
         this.setState({redirect: "/Registration"});
     }    
@@ -156,12 +159,13 @@ export default class Login extends Component {
                         FormHelperTextProps={{ style: styles.helperText }}
                         />
                     <div className="pwdchange">
-                    <span className="forget">Forget Password?</span>
+                    <span className="forget" onClick={this.forgetPassword}>Forget Password?</span>
                     <span className="forget">Reset Password?</span>
                     </div>
 
                     </div>
-                    <div className="div-but-content"><span className="Text Text-Cont" onClick={this.regPage}>Create Account</span>
+                    <div className="div-but-content">
+                        <span className="Text Text-Cont" onClick={this.regPage}>Create Account</span>
                                     <Button className="button" variant="contained" color="primary" href="#contained-buttons" onClick={this.Next}>
                                         Next
                                      </Button>

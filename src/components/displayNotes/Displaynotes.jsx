@@ -8,22 +8,22 @@ import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = {
-    underline: {    
-    "& .MuiInput-underline:before": {
-        position: 'fixed'
-    },
-    "& .MuiInput-underline:after": {
-        position: 'fixed'
+    underline: {
+        "& .MuiInput-underline:before": {
+            position: 'fixed'
+        },
+        "& .MuiInput-underline:after": {
+            position: 'fixed'
+        }
     }
-    }
-  };
+};
 
 class Displaynotes extends Component {
-    constructor(props){
+    constructor(props) {
         super(props)
 
-        this.state={
-            openStatus:false,
+        this.state = {
+            openStatus: false,
             title: '',
             description: ''
         }
@@ -38,7 +38,7 @@ class Displaynotes extends Component {
         user_services.deleteNote(Data).then((data) => {
             console.log('Delete Note', data);
             this.props.get();
-            
+
         }).catch(error => {
             console.log('Delete error', error);
         })
@@ -59,123 +59,126 @@ class Displaynotes extends Component {
         console.log("Archive", Data);
     }
 
-    onUpdate=()=>{
+    onUpdate = () => {
         let Data = {
             noteId: this.props.value.id,
             title: this.state.title,
             description: this.state.description
-          };
-          user_services.updateNote(Data).then((data) =>{
-            console.log('Update Note',data);
-          }).catch(error=>{
-            console.log('Update error',error);
+        };
+        user_services.updateNote(Data).then((data) => {
+            console.log('Update Note', data);
+        }).catch(error => {
+            console.log('Update error', error);
         })
-          console.log("Update",Data);
+        console.log("Update", Data);
     }
 
-    handleInput = (e) =>{
+    handleInput = (e) => {
         this.setState({
-            [e.target.name]:e.target.value
-        },() => {console.log(this.state);})
+            [e.target.name]: e.target.value
+        }, () => { console.log(this.state); })
     }
 
     render() {
         const { classes } = this.props;
         console.log(this.props.value.description)
         return (
-            <div className="disp-note">
-                <div className="note"style={{
-                backgroundColor:this.props.value.color
-        }}>
-            <div>
-                <div className="title-pin"
-                onClick={()=>{
-                    this.setState({
-                        openStatus:!this.state.openStatus,
-                        title:this.props.value.title,
-                        description:this.props.value.description
-                    })
-                }}>
-                    {this.props.value.title}
-                    <img src={pin} className="pin-inp" alt="" />
-                </div>
-                <div className="description-note" 
-                onClick={()=>{
-                    this.setState({
-                        openStatus:!this.state.openStatus,
-                        title:this.props.value.title,
-                        description:this.props.value.description
-                    })
-                }}>
-                    {this.props.value.description}
-            </div>
-                </div>
-                    <div>
-                    <div className="disp-icn">
-                    <Icons 
-                    archive={()=>{
-                        this.onArchive();
-                    }}
-                    delete={()=>{
-                        this.onDelete();
-                    }}
-                    val={this.props.value}
-                    get={()=>{this.props.get()}}/>
-                    </div>
-                    </div>
-                </div>
-                <Dialog
-            open={this.state.openStatus}>
-                <div
-                    className="dialog-body" 
-                    style={{
-                    width:"570px",
-                    minHeight:"160px",
-                    padding:"15px",
-                    backgroundColor:this.props.value.color,
-                    display:"flex",
-                    flexDirection:"column",
-                    justifyContent:"flex-start"
-                }}>
-                    <TextField 
-                                className={classes.underline}
-                                name="title"
-                                defaultValue={this.props.value.title}
-                                multiline
-                                onChange={this.handleInput}
-                            />
-                    <TextField 
-                                className={classes.underline}
-                                name="description"
-                                defaultValue={this.props.value.description}
-                                multiline
-                                onChange={this.handleInput}
-                            />
-                </div>
-                <div
-                style={{
-                    padding: "10px",
-                    backgroundColor:this.props.value.color,
-                    display:"flex",
-                    justifyContent:"space-between"
-                }}>
-                <div className="dialog-icon">
-                <Icons
-                    val={this.props.value}/>
-                </div>
-                    <div className="dialog-close"
-                    onClick={()=>{
-                        this.onUpdate();
-                        this.props.get();
-                        this.setState({
-                            openStatus:!this.state.openStatus
-                        });
+                <div className="note" style={{
+                    backgroundColor: this.props.value.color
                     }}>
-                        Close
+                    <div className="title-pinn"
+                        onClick={() => {
+                            this.setState({
+                                openStatus: !this.state.openStatus,
+                                title: this.props.value.title,
+                                description: this.props.value.description
+                            })
+                        }}>
+                        <div className="title-note">
+                            <div className='title-frame'>
+                                {this.props.value.title}
+                            </div>
+                            <img className="pin-inp"
+                                src={pin} alt="" />
+                        </div>
+
+                        <div className="description-note">
+                            {this.props.value.description}
+                        </div>
                     </div>
+                    <div className="icon-frame">
+                        <div className="disp-icn">
+                            <Icons
+                                archive={() => {
+                                    this.onArchive();
+                                }}
+                                delete={() => {
+                                    this.onDelete();
+                                }}
+                                val={this.props.value}
+                                get={() => { this.props.get() }} />
+                        </div>
                     </div>
-            </Dialog>
+                <Dialog
+                    open={this.state.openStatus}>
+                    <div
+                        className="dialog-body"
+                        style={{
+                            width: "570px",
+                            minHeight: "160px",
+                            padding: "15px",
+                            backgroundColor: this.props.value.color,
+                            display: "flex",
+                            flexDirection: "column",
+                            justifyContent: "flex-start"
+                        }}>
+                        <TextField
+                            className={classes.underline}
+                            name="title"
+                            defaultValue={this.props.value.title}
+                            multiline
+                            onChange={this.handleInput}
+                        />
+                        <TextField
+                            className={classes.underline}
+                            name="description"
+                            defaultValue={this.props.value.description}
+                            multiline
+                            onChange={this.handleInput}
+                        />
+                    </div>
+                    <div
+                        style={{
+                            padding: "10px",
+                            backgroundColor: this.props.value.color,
+                            display: "flex",
+                            justifyContent: "space-between"
+                        }}>
+                        <div className="dialog-icon">
+                            <Icons
+                                 archive={() => {
+                                    this.onArchive();
+                                }}
+                                delete={() => {
+                                    this.onDelete();
+                                }}
+                                val={this.props.value}
+                                get={() => { this.props.get() }} />
+                        </div>
+                        <div className="dialog-close"
+                            onClick={() => {
+                                this.onUpdate();
+                                this.props.get();
+                                this.setState({
+                                    openStatus: !this.state.openStatus
+                                });
+                            }}>
+                            Close
+                    </div>
+                </div>
+                </Dialog>
             </div>
+
         );
     }
 }

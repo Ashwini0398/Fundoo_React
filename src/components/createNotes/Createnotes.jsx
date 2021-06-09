@@ -37,10 +37,11 @@ class Createnotes extends Component {
         super(props);
 
         this.state = {
-            open: true,
+            open:true,
             title: "",
             note: "",
-            responce: false
+            responce: false,
+            color:"#ffffff"
         }
 
     }
@@ -56,7 +57,8 @@ class Createnotes extends Component {
     handleClickClose=()=>{
         let userData={
         title: this.state.title,
-        description: this.state.note
+        description: this.state.note,
+        color:this.state.color
         };
 
     
@@ -105,7 +107,7 @@ class Createnotes extends Component {
         return (
             <>
           {this.state.open ? (
-                <div className="takenote" onClick={this.handleClick}>
+                <div className="takenote" onClick={this.handleClick} >
                     <div className="input-feild"  >
                         <div className="inputText" type="text" >Take a Note...</div>
                             <div classname="imgIconClose">
@@ -116,9 +118,11 @@ class Createnotes extends Component {
                     </div>
                 </div>
         ):( 
-                <div className="takenote takenote-open">
+                <div className="takenote takenote-open" style={{
+                    backgroundColor: this.state.color
+                    }}>
                     <div className="input-feild-open">
-                        <div className="input-title-note">
+                        <div className="input-title-note" >
                             <TextField 
                                 id="standard-multiline-flexible" 
                                 className={classes.underline,classes.widthInp}
@@ -139,7 +143,11 @@ class Createnotes extends Component {
                         </div>
                         <div className="icon-open">
                         <div className="icon-open-content">
-                            <Icons/>
+                            <Icons val="abcd1234" getColor={(data)=>{
+                                    this.setState({
+                                        color:data
+                                    })
+                            }}/>
                         </div>
                             <div onClick={this.handleClickClose} className="icon-open-close">Close</div>
 

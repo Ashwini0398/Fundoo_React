@@ -3,10 +3,10 @@
   }
 .takenote{
     border-radius: 8px;
-    height: 60px;
     width: 534px;
     box-shadow: 1px 3px 9px 0px #888888;
     display: flex;
+    min-height: 61px;
 }
 .input-feild
 {
@@ -17,6 +17,7 @@
 .takenote-open{
     height: 180px;
     padding-left: 10px;
+    min-height: 55px;
 }
 .input-feild-open{
     display: flex;
@@ -63,4 +64,10 @@
         cursor: pointer;
         width: 12%;
         font-weight: inherit;
+}
+
+@media(max-width:600px){
+    .input-feild{
+        width: 100%;
+    }
 }

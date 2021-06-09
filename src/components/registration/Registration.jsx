@@ -32,7 +32,8 @@ export default class Registration extends Component {
             showPassword: false,
             flag:0,
             matchPassword:false,
-            redirect:''
+            redirect:'',
+            showpassword: true,
         }
     }
     validationTest = (test, val) => {
@@ -218,7 +219,7 @@ export default class Registration extends Component {
                                 <TextField
                                     error={this.state.passwordError}
                                     id="password"
-                                    type="password"
+                                    type={this.state.showpassword ? "password" : "type"}
                                     name="password"
                                     label="Password"
                                     variant="outlined"
@@ -229,7 +230,7 @@ export default class Registration extends Component {
                                 <TextField
                                     error={this.state.cPasswordError}
                                     id="Confirm"
-                                    type="password"
+                                    type={this.state.showpassword ? "password" : "type"}
                                     name="cPassword"
                                     label="Confirm Password"
                                     variant="outlined"
@@ -241,8 +242,10 @@ export default class Registration extends Component {
                             </div>
                             <div className="message">Use 8 or more characters with a mix of letters, number & symbols</div>
                             <div className="show-checkbox">
+                                {/* <input type="checkbox" id="radio" onClick={this.handleClick} value="Show password" />
+                                <span>Show password</span> */}
                                 <input type="checkbox" id="radio" onClick={this.handleClick} value="Show password" />
-                                <span>Show password</span>
+                                    <label htmlFor="radio"> Show password</label>
                             </div>
 
                             <div className="div-but-content"><span className="Text Text-Redirect" onClick={this.signinPage}>Sign in Instead</span>
