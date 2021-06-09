@@ -25,7 +25,6 @@ import DeleteOutlinedIcon from '@material-ui/icons/DeleteForeverRounded';
 import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
 import EditOutlinedIcon from '@material-ui/icons/EditRounded';
 import EmojiObjectsIcon from '@material-ui/icons/EmojiObjectsRounded';
-import AddAlertRoundedIcon from '@material-ui/icons/AddAlertRounded';
 import user_services from '../../services/userService'; 
 import './Header.scss'
 import Createnotes from '../createNotes/Createnotes';
@@ -35,18 +34,20 @@ import { useEffect } from 'react';
 import Trash from '../trash/trash';
 import Archive from '../archive/archive';
 import {
-  BrowserRouter,
   Switch,
-  Route,
   Link
 } from "react-router-dom";
 import {ProtectedRoute} from '../../services/auth/protectedRoutes';
+import Popover from '../header/poppover';
+
 // import GetNotes from './GetNote';
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
+  },grow: {
+    flexGrow: 1,
   },
   appBar: {
     borderBottom: '1px solid #BDBDBD',
@@ -100,6 +101,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-end',
+    marginTop: '20px',
     padding: theme.spacing(0, 1),
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
@@ -112,6 +114,8 @@ const useStyles = makeStyles((theme) => ({
 
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
+    marginLeft: '30px',
+    marginRight: '107px',
     backgroundColor: fade(theme.palette.common.white, 0.15),
     '&:hover': {
       backgroundColor: fade(theme.palette.common.white, 0.25),
@@ -121,10 +125,12 @@ const useStyles = makeStyles((theme) => ({
     color: 'black',
     backgroundColor: '#F1F3F4',
     borderRadius: '8px',
+
     [theme.breakpoints.up('sm')]: {
       marginLeft: theme.spacing(1),
-      width: '67%',
+      width: '58%',
       height: '55px',
+      marginLeft: '34px',
     },
   },
   searchIcon: {
@@ -150,6 +156,23 @@ const useStyles = makeStyles((theme) => ({
       '&:focus': {
         width: '20ch',
       },
+    },
+  },
+  sideIcon:{
+    borderRadius:'20px',
+    "&:focus": {
+      backgroundColor: '#FEEFC3'
+    }
+  },sectionDesktop: {
+    display: 'none',
+    [theme.breakpoints.up('sm')]: {
+      display: 'flex',
+    },
+  },
+  sectionMobile: {
+    display: 'flex',
+    [theme.breakpoints.up('sm')]: {
+      display: 'none',
     },
   },
 }));
@@ -182,35 +205,28 @@ export default function MiniDrawer() {
     setOpen(false);
   };
 
-  function changeContent(e, text) {
-    e.stopPropagation();
-    switch (text) {
-      case 'Trash':
-        break;
-      case 'Notes':
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
-        break;
-      case 'Archive':
-        break;
-      default:
-        break;
-    }
+  const handleMobileMenuOpen = (event) => {
+    setMobileMoreAnchorEl(event.currentTarget);
+  };
 
-  }
+  const mobileMenuId = 'primary-search-account-menu-mobile';
+
   function icon(index){
     switch (index) {
     case 0:
-    return (<Link to="/dashboard/notes"><ListItemIcon > <EmojiObjectsIcon /> </ListItemIcon></Link>)
+    return (<ListItemIcon > <EmojiObjectsIcon /> </ListItemIcon>)
     case 1:
     return (<ListItemIcon > <NotificationsNoneIcon /> </ListItemIcon>)
     case 2:
     return (<ListItemIcon > <EditOutlinedIcon /> </ListItemIcon>)
     case 3:
-    return (<Link to="/dashboard/archive" ><ListItemIcon > <ArchiveOutlinedIcon /> </ListItemIcon> </Link>)
+    return (<ListItemIcon > <ArchiveOutlinedIcon /> </ListItemIcon>)
     case 4:
-    return (<Link to="/dashboard/trash" ><ListItemIcon > <DeleteOutlinedIcon /> </ListItemIcon></Link>)
+    return (<ListItemIcon > <DeleteOutlinedIcon /> </ListItemIcon>)
     default:
-    return (<Link to="/dashboard/notes" ><ListItemIcon > <MailIcon /> </ListItemIcon></Link>)
+    return (<ListItemIcon > <MailIcon /> </ListItemIcon>)
     }}
 
 
@@ -236,9 +252,9 @@ export default function MiniDrawer() {
             <MenuIcon />
           </IconButton>
           <img className="imgKeep" src="https://www.gstatic.com/images/branding/product/1x/keep_2020q4_48dp.png" alt="" ></img>
-          <Typography className="text" variant="h6" noWrap>
+          <h3 className="text" variant="h6" noWrap>
             Fundoo
-          </Typography>
+          </h3>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
@@ -252,9 +268,30 @@ export default function MiniDrawer() {
               inputProps={{ 'aria-label': 'search' }}
             />
           </div>
+          <div className={classes.grow} />
+          <div className={classes.sectionDesktop}>
+              <Popover/>
+          </div>
+          <div className={classes.sectionMobile}>
+            <IconButton
+              aria-label="show more"
+              aria-controls={mobileMenuId}
+              aria-haspopup="true"
+              onClick={handleMobileMenuOpen}
+              color="inherit"
+            >
+              {/* <Avatar alt="Remy Sharp" 
+                src="https://lh3.googleusercontent.com/ogw/ADGmqu9fD7T16OvzpM2qMPbPNiicoPEFBxuDORVJpthC=s83-c-mo" /> */}
+                <div className="avatar">
           <Avatar className="profilepic" alt="Ashwini" src="/static/images/avatar/3.jpg" />
-
+          </div>
+            </IconButton>
+          </div>
+          {/* <div className="avatar">
+          <Avatar className="profilepic" alt="Ashwini" src="/static/images/avatar/3.jpg" />
+          </div> */}
         </Toolbar>
+
       </AppBar>
       <Drawer
         variant="permanent"
@@ -274,12 +311,14 @@ export default function MiniDrawer() {
             {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </IconButton>
         </div>
-        <List onMouseEnter={handleDrawerOpen} onMouseLeave={handleDrawerClose} >
-          {['Notes', 'Reminder', 'Edit labels', 'Archive', 'Trash'].map((text, index) => (
-            <ListItem button key={text} onClick={e => changeContent(e, text)}>
+        <List onMouseEnter={handleDrawerOpen} onMouseLeave={handleDrawerClose}>
+          {['Notes', 'Reminder', 'Editlabels', 'Archive', 'Trash'].map((text, index) => (
+           <Link to={`/dashboard/${text}`} >
+            <ListItem className={classes.sideIcon} button key={text}>
               {icon(index)}
-              <ListItemText primary={text} />
+              <ListItemText className={classes.sideIcon} primary={text} />
             </ListItem>
+            </Link>
           ))}
         </List>
       </Drawer>
@@ -287,9 +326,9 @@ export default function MiniDrawer() {
      
       
       
-      <div>
+      <div className="create-part">
           <Switch>
-									<ProtectedRoute
+									<ProtectedRoute className={classes.sideIcon}
 									 exact path={"/dashboard"}
 										component={NoteMaker}
 									>
@@ -298,8 +337,8 @@ export default function MiniDrawer() {
                     <NoteMaker value={notes} get={getNotes}/>
                     </div>
                   </ProtectedRoute>
-                  <ProtectedRoute
-									 exact path={"/dashboard/notes"}
+                  <ProtectedRoute className={classes.sideIcon}
+									 exact path={"/dashboard/Notes"}
 										component={NoteMaker}
 									>
                      <div className="create">
@@ -307,16 +346,34 @@ export default function MiniDrawer() {
                     <NoteMaker value={notes} get={getNotes}/>
                     </div>
                   </ProtectedRoute>
-                  <ProtectedRoute
-									 exact path={"/dashboard/trash"}
+                  <ProtectedRoute className={classes.sideIcon}
+									 exact path={"/dashboard/Reminder"}
+										component={NoteMaker}
+									>
+                     <div className="create">
+                    <Createnotes get={getNotes}/>
+                    <NoteMaker value={notes} get={getNotes}/>
+                    </div>
+                  </ProtectedRoute>
+                  <ProtectedRoute className={classes.sideIcon}
+									 exact path={"/dashboard/Editlabels"}
+										component={NoteMaker}
+									>
+                     <div className="create">
+                    <Createnotes get={getNotes}/>
+                    <NoteMaker value={notes} get={getNotes}/>
+                    </div>
+                  </ProtectedRoute>
+                  <ProtectedRoute className={classes.sideIcon}
+									 exact path={"/dashboard/Trash"}
 										component={Trash}
 									>
                     <div className="create"> 
                   <Trash value={notes} get={getNotes}/>
                   </div>
                   </ProtectedRoute>
-                  <ProtectedRoute
-									 exact path={"/dashboard/archive"}
+                  <ProtectedRoute className={classes.sideIcon}
+									 exact path={"/dashboard/Archive"}
 										component={Archive}> 
                     <div className="create"> 
                   <Archive value={notes} get={getNotes}/>
@@ -325,13 +382,7 @@ export default function MiniDrawer() {
                   
 					</Switch>
       </div>
-      <main className={classes.content}>
-        <div className={classes.toolbar} />
-        <div>
-
-        </div>
-
-      </main>
+     
     </div>
   );
 }

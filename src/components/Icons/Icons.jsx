@@ -16,81 +16,88 @@ import user_services from '../../services/userService';
 class Icons extends Component {
     constructor(props) {
         super(props);
-        this.state={
-            anchorEl : null
+        this.state = {
+            anchorEl: null
         }
-        
+
     }
     handleClose = () => {
         this.setState({
-           anchorEl: null
+            anchorEl: null
         })
-        
-      };
-    
+
+    };
+
     menuClick = (event) => {
         this.setState({
-            
+
             anchorEl: event.currentTarget
         })
     }
 
-    onSetColor=(color)=>{
-
+    onSetColor = (color) => {
+        if(this.props.val !== "abcd1234"){
         let Data = {
             color: color.code,
             noteIdList: [this.props.val.id]
         };
-        user_services.changeColor(Data).then((data) =>{
-            console.log('Color Note',data);
+        user_services.changeColor(Data).then((data) => {
+            console.log('Color Note', data);
             this.props.get();
-          }).catch(error=>{
-            console.log('Color error',error);
+        }).catch(error => {
+            console.log('Color error', error);
         })
-          console.log("Color",Data);
+        console.log("Color", Data);
+    }else{
+        this.props.getColor(color.code);
+    }
     }
 
     render() {
         return (
             <div>
                 <div className="icon-open-content">
-                <div className="note-icons-hover">
-                        <AddAlertOutlinedIcon className="i-disp"/>
-                </div>
-                <div className="note-icons-hover">
-                        <PersonAddOutlinedIcon className="i-disp"/>
-                </div>
-                <div className="note-icons-hover">
+                    <div className="note-icons-hover">
+                        <AddAlertOutlinedIcon className="i-disp" />
+                    </div>
+                    <div className="note-icons-hover">
+                        <PersonAddOutlinedIcon className="i-disp" />
+                    </div>
+                    <div className="note-icons-hover">
                         <Popper putColor={(Data) => {
                             this.onSetColor(Data);
-                            }} />
-                </div>
-                <div className="note-icons-hover">
-                        <ImageOutlinedIcon className="i-disp"/>
-                </div>
-                <div className="note-icons-hover">
-                            <ArchiveOutlinedIcon className="i-disp" onClick={()=>{
-                                this.props.archive()
-                            }}/>
+                        }} />
                     </div>
-            <div>
-                <div className="note-icons-hover">
-                        <MoreVertOutlinedIcon className="i-disp" onClick={this.menuClick}/>
+                    <div className="note-icons-hover">
+                        <ImageOutlinedIcon className="i-disp" />
+                    </div>
+                    <div className="note-icons-hover">
+                        <ArchiveOutlinedIcon className="i-disp" onClick={() => {
+                            this.props.archive()
+                        }} />
+                    </div>
+                    <div>
+                        <div className="note-icons-hover">
+                            <MoreVertOutlinedIcon className="i-disp" onClick={this.menuClick} />
+                        </div>
+
+                        <Menu
+                            id="simple-menu"
+                            keepMounted
+                            anchorEl={this.state.anchorEl}
+                            onClose={this.handleClose}
+                            open={Boolean(this.state.anchorEl)}
+                        >
+                            <MenuItem onClick={() => { this.handleClose(); this.props.delete() }}>Delete Node</MenuItem>
+                            <MenuItem >Add Label</MenuItem>
+                            <MenuItem >Add Drawing</MenuItem>
+                            <MenuItem >Make a Copy</MenuItem>
+                            <MenuItem >Show Checkboxes</MenuItem>
+
+                        </Menu>
+
+                    </div>
                 </div>
-              
-                    <Menu
-                        id="simple-menu"
-                        keepMounted
-                        anchorEl={this.state.anchorEl}
-                        onClose={this.handleClose}
-                        open={Boolean(this.state.anchorEl)}
-                    >
-                        <MenuItem onClick={()=>{this.handleClose();this.props.delete()}}>Delete Node</MenuItem>
-
-                    </Menu>
-
-            </div>
-                 </div>
             </div>
         );
     }

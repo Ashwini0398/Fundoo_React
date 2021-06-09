@@ -9,6 +9,7 @@ import {
 import {ProtectedRoute} from '../src/services/auth/protectedRoutes';
 import Registration from './components/registration/Registration';
 import Dashboard from './components/dashboard/Dashboard';
+import ForgetPassword from '../src/components/ForgetPassword/ForgetPassword';
 import Trash from '../src/components/trash/trash';
 import Archive from '../src/components/archive/archive';
 
@@ -21,6 +22,7 @@ function App() {
     <Route exact path="/" component={Login}/>
     <Route exact path="/Registration" component={Registration}/>
     <ProtectedRoute path={'/dashboard'} component={Dashboard} />
+    <Route path="/ForgetPassword" component={ForgetPassword}></Route>
     {/* <BrowserRouter>
             <ProtectedRoute	path={"/dashboard/notes"} component={Dashboard}/>
             <ProtectedRoute	path={"/dashboard/trash"} component={Trash}/>

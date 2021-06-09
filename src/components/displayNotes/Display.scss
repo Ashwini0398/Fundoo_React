@@ -8,9 +8,10 @@
     /* justify-content: flex-start; */
     overflow-wrap: anywhere;
     text-align: left;
-    max-height: 330px;
+    max-height: 220px;
     justify-content: space-between;
     width: 230px;
+    overflow: scroll;
 }
 
 .disp-note{
@@ -21,7 +22,7 @@
 }
 .note{
     width: 240px;
-    min-height: 145px;
+    min-height: 150px;
     max-height: 350px;
     border-radius: 8px;
     padding: 8px;
@@ -33,34 +34,73 @@
     justify-content: space-between;
     overflow: scroll;
 }
+.title-pinn{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 200px;
+    min-height: 120px;
+    max-height: 300px;
+}
 .title-note{
     @include input(5px,0px,large);
 }
 .description-note{
     @include input(0px,5px,larger);
 }
-.title-pin
-{
-    @include input(5px,0px,large);
+.title-frame{
+    width: 90%;
 }
 .pin-inp{
     display:none;
     height: 20px;
 }
-
+.icon-frame{
+    height:30px
+}
 .disp-icn{
     display: none;
-    margin-top: 40px;
 }
 
-.disp-note :hover .disp-icn 
+.note:hover .disp-icn 
 {
    display: block; 
    color:#292a2b;
 }
 
-.disp-note :hover .pin-inp
+.note:hover .pin-inp
 {
    display: block; 
    color:#292a2b;
 }
+
+@media(max-width:600px){
+    .disp-note{
+        width: 100%;
+        width: 72%;
+    }
+    .note{
+        width: 90%;
+    }
+    .title-pinn{
+        width: 460px;
+    }
+    .title-note{
+        width: 90%
+    }
+    .description-note{
+        width: 90%
+    }
+    .dialog-body{
+        width: 100%;
+    }
+    .dialog-icon{
+        width:80%
+    }
+  }
+
+  @media screen and (width: 360px) {
+    .disp-note{
+        width: 72%;
+    }
+  }
