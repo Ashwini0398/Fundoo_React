@@ -38,7 +38,7 @@ class Icons extends Component {
     }
 
     onSetColor = (color) => {
-        if(this.props.val !== "abcd1234"){
+        if(this.props.colorval === "update"){
         let Data = {
             color: color.code,
             noteIdList: [this.props.val.id]
@@ -48,7 +48,7 @@ class Icons extends Component {
             this.props.get();
         }).catch(error => {
             console.log('Color error', error);
-        })
+        });
         console.log("Color", Data);
     }else{
         this.props.getColor(color.code);

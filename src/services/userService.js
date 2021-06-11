@@ -67,9 +67,14 @@ class UserService{
 
     addCollab(data,noteId) 
     {
-        
         let url = baseURL+"notes/"+noteId+"/AddcollaboratorsNotes";
         return this.axios_service.post(url,data);
+    }
+
+    signOut() 
+    {
+        let url = baseURL+"user/logout";
+        return this.axios_service.post(url,{});
     }
 
 }

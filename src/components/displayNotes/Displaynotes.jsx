@@ -115,6 +115,7 @@ class Displaynotes extends Component {
                                 delete={() => {
                                     this.onDelete();
                                 }}
+                                colorval="update"
                                 val={this.props.value}
                                 get={() => { this.props.get() }} />
                         </div>
@@ -162,6 +163,7 @@ class Displaynotes extends Component {
                                 delete={() => {
                                     this.onDelete();
                                 }}
+                                colorval="update"
                                 val={this.props.value}
                                 get={() => { this.props.get() }}
                                  />

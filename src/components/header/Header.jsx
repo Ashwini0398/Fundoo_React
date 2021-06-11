@@ -160,8 +160,10 @@ const useStyles = makeStyles((theme) => ({
   },
   sideIcon:{
     borderRadius:'20px',
+   
     "&:focus": {
-      backgroundColor: '#FEEFC3'
+      backgroundColor: '#FEEFC3',
+      textDecoration:'none',
     }
   },sectionDesktop: {
     display: 'none',
@@ -313,7 +315,7 @@ export default function MiniDrawer() {
         </div>
         <List onMouseEnter={handleDrawerOpen} onMouseLeave={handleDrawerClose}>
           {['Notes', 'Reminder', 'Editlabels', 'Archive', 'Trash'].map((text, index) => (
-           <Link to={`/dashboard/${text}`} >
+           <Link style={{textDecoration:"none",color:"black"}} to={`/dashboard/${text}`} >
             <ListItem className={classes.sideIcon} button key={text}>
               {icon(index)}
               <ListItemText className={classes.sideIcon} primary={text} />

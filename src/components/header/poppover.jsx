@@ -5,6 +5,7 @@ import Avatar from '@material-ui/core/Avatar';
 import './Header.scss';
 import Button from '@material-ui/core/Button';
 import { useHistory } from "react-router-dom";
+import user_services from '../../services/userService'; 
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -32,6 +33,10 @@ export default function SimplePopper() {
 
   const signOut=()=> {
     localStorage.clear();
+    user_services.signOut().then((data) => {
+        history.push("/");
+      }).catch(error => {
+      });
     history.push("/");
   }
 

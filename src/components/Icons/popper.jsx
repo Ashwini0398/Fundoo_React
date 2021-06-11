@@ -15,6 +15,9 @@ const useStyles = makeStyles((theme) => ({
       padding: theme.spacing(1),
       backgroundColor:'white'
     },
+    pop:{
+        zIndex: "10000"
+    }
   }));
   
   const colors=[{
@@ -73,7 +76,7 @@ const useStyles = makeStyles((theme) => ({
         return (
             <>
             <PaletteOutlinedIcon className="i-disp" onClick={handleClick}/>
-            <Popper  open={open} anchorEl={anchorEl} placement={'top-start'} transition>
+            <Popper className={classes.pop} open={open} anchorEl={anchorEl} placement={'top-start'} transition>
               <div className={classes.paper}>{colors.map(demo)}</div>
             </Popper>
           </>

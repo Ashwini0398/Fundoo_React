@@ -52,19 +52,26 @@ class Createnotes extends Component {
         })
     }
 
-    
+    handleColor=(data)=>{
+        this.setState({
+            color:data
+        });
+
+    }
 
     handleClickClose=()=>{
-        let userData={
+        let userData = {
         title: this.state.title,
         description: this.state.note,
         color:this.state.color
-        };
+        }
 
-    
-    
+    if(!this.state.color){
+        userData.color = this.state.color;
+        console.log("colordata",userData.color);
+    }  
 
-    if(this.state.title !== "" && this.state.description !== ""){
+    else if(this.state.title !== "" && this.state.description !== ""){
         console.log("success");
         user_services.addNotes(userData).then((data) =>{
             console.log('data after added note',data);
@@ -81,7 +88,8 @@ class Createnotes extends Component {
                 open: true,
                 title: "",
                 note: "",
-                responce: true
+                responce: true,
+                color:""
               },()=>{console.log(this.state);})
             console.log('Error',error);
         });
@@ -96,7 +104,8 @@ class Createnotes extends Component {
               },()=>{console.log(this.state);})
     }
 }
-    handleInput = (e) => {
+
+handleInput = (e) => {
         this.setState({
             [e.target.name]: e.target.value
         }, () => { console.log(this.state); })
@@ -143,11 +152,7 @@ class Createnotes extends Component {
                         </div>
                         <div className="icon-open">
                         <div className="icon-open-content">
-                            <Icons val="abcd1234" getColor={(data)=>{
-                                    this.setState({
-                                        color:data
-                                    })
-                            }}/>
+                            <Icons colorval="create" getColor={this.handleColor}/>
                         </div>
                             <div onClick={this.handleClickClose} className="icon-open-close">Close</div>
 
