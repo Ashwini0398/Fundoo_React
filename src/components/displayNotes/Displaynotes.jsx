@@ -163,7 +163,8 @@ class Displaynotes extends Component {
                                     this.onDelete();
                                 }}
                                 val={this.props.value}
-                                get={() => { this.props.get() }} />
+                                get={() => { this.props.get() }}
+                                 />
                         </div>
                         <div className="dialog-close"
                             onClick={() => {

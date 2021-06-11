@@ -1,0 +1,28 @@
+@mixin  input($size) {
+    font-size: $size;
+    margin-left: 20px;
+}
+
+.collab-btn{
+    display: flex;
+    flex-direction: row-reverse;
+    cursor: pointer;
+    .collab-btn-cnt{
+        display: flex;
+        justify-content: space-around;
+        width: 220px;
+    }
+}
+.collab-data{
+    width: 350px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.name-txt{
+    @include input(larger);
+}
+
+.email-txt{
+    @include input(medium);
+}

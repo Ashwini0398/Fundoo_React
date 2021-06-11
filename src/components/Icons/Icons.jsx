@@ -11,13 +11,15 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import Popper from './popper';
 import user_services from '../../services/userService';
-
+import Dialog from '@material-ui/core/Dialog';
+import Collaborators from '../Collaborators/Collaborators';
 
 class Icons extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            anchorEl: null
+            anchorEl: null,
+            openStatus:false
         }
 
     }
@@ -53,6 +55,18 @@ class Icons extends Component {
     }
     }
 
+    onSetStatus =(val)=>{
+        this.setState({
+            openStatus:val
+        });
+    }
+
+    dialogopen = ()=>{
+        this.setState({
+            openStatus:true
+        });
+    }
+
     render() {
         return (
             <div>
@@ -61,7 +75,7 @@ class Icons extends Component {
                         <AddAlertOutlinedIcon className="i-disp" />
                     </div>
                     <div className="note-icons-hover">
-                        <PersonAddOutlinedIcon className="i-disp" />
+                        <PersonAddOutlinedIcon className="i-disp" onClick={this.dialogopen}/>
                     </div>
                     <div className="note-icons-hover">
                         <Popper putColor={(Data) => {
@@ -98,6 +112,12 @@ class Icons extends Component {
 
                     </div>
                 </div>
+                <Collaborators 
+                    open={this.state.openStatus} 
+                    note={this.props.val} 
+                    getCloseStatus={(Data) => {
+                        this.onSetStatus(Data);
+                    }}/>
             </div>
         );
     }

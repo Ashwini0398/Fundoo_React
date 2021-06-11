@@ -58,5 +58,19 @@ class UserService{
         let url = baseURL+'notes/updateNotes';
         return this.axios_service.post(url,data);
     }
+
+    searchCollab(data) 
+    {
+        let url = baseURL+'user/searchUserList';
+        return this.axios_service.post(url,data);
+    }
+
+    addCollab(data,noteId) 
+    {
+        
+        let url = baseURL+"notes/"+noteId+"/AddcollaboratorsNotes";
+        return this.axios_service.post(url,data);
+    }
+
 }
 export default new UserService();
