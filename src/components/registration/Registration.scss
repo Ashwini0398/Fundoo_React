@@ -196,7 +196,17 @@ $margin-left: 40px;
     }
    
 }
+@media screen and (max-width: 411px) {
+
+    .reg-frame{
+        height: 800px;
+    }
+}
 @media screen and (max-width: 360px) {
+
+.reg-frame{
+    height: 750px;
+}
 .input-field {
     width: 84%;
     margin-left: 9%;
