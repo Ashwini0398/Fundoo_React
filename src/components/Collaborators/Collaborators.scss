@@ -2,6 +2,13 @@
     font-size: $size;
     margin-left: 20px;
 }
+@mixin  align($width) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: $width;
+}
+
 
 .collab-btn{
     display: flex;
@@ -25,4 +32,22 @@
 
 .email-txt{
     @include input(medium);
+}
+
+.collab-txt{
+    @include input(medium);
+    margin-top: 20px;
+}
+
+.collab-dtl{
+    @include align(350px);
+}
+
+.search-cnt{
+    @include align(300px);
+}
+
+.on-close{
+    cursor: pointer;
+    color: rgb(199, 175, 175);
 }

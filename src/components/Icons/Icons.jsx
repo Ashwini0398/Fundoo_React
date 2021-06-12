@@ -117,7 +117,8 @@ class Icons extends Component {
                     note={this.props.val} 
                     getCloseStatus={(Data) => {
                         this.onSetStatus(Data);
-                    }}/>
+                    }}
+                    getNotes={()=>{this.props.get()}}/>
             </div>
         );
     }

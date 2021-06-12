@@ -6,6 +6,8 @@ import user_services from '../../services/userService';
 import Dialog from '@material-ui/core/Dialog';
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
+import MenuItem from '@material-ui/core/MenuItem';
+import Avatar from '@material-ui/core/Avatar';
 
 const styles = {
     underline: {
@@ -81,7 +83,16 @@ class Displaynotes extends Component {
 
     render() {
         const { classes } = this.props;
-        console.log(this.props.value.description)
+        
+        const collabDetails = this.props.value.collaborators.map((data)=>{
+        let str = data.firstName
+        const chars = str.split('');
+        return (
+            <div>
+            <Avatar alt={chars[0]} src={chars[0]} />
+            </div>
+            );
+        });
         return (
                 <div className="note" style={{
                     backgroundColor: this.props.value.color
@@ -105,6 +116,9 @@ class Displaynotes extends Component {
                         <div className="description-note">
                             {this.props.value.description}
                         </div>
+                    </div>
+                    <div className="collab-align">
+                            {collabDetails}                        
                     </div>
                     <div className="icon-frame">
                         <div className="disp-icn">

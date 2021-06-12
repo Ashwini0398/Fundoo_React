@@ -12,6 +12,14 @@ axios_service.prototype.post =  function(url,data){
     });
 }
 
+axios_service.prototype.delete = function(url){
+  return axios.delete(url,{
+    headers: {
+      Authorization: localStorage.getItem('token')
+    },
+  });
+}
+
 axios_service.prototype.Get =  function(url){
   return axios.get(url,{
       headers: {

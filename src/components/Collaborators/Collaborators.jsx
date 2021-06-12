@@ -7,6 +7,7 @@ import user_services from '../../services/userService';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import { Button, MenuList, Popover } from "@material-ui/core";
+import CloseIcon from '@material-ui/icons/Close';
 
 const styles = {
     underline: {
@@ -29,7 +30,8 @@ class Collaborators extends Component {
         this.state = {
             openStatus:false,
             collaborators:'',
-            collabData:[]
+            collabData:[],
+            cancel:false
         }
         
     }
@@ -37,11 +39,13 @@ class Collaborators extends Component {
     handleInput = (e) =>{
         console.log('search value', e.target.value);
         this.setState({
-            collaborators:e.target.value
+            collaborators:e.target.value,
+            cancel:true
         });
         let Data = {
             searchWord: e.target.value
         }
+        if(e.target.value !== ""){
         user_services.searchCollab(Data).then((data) => {
             this.setState({
                 collabData:data.data.data.details
@@ -51,19 +55,14 @@ class Collaborators extends Component {
             console.log('searchCollab', error);
         });
     }
+    }
 
     addColaborator(val){
-        // let Data={
-        //     email: val.email,
-        //     firstName: val.firstName,
-        //     lastName: val.lastName,
-        //     userId: val.userId
-        // }
         let collaborators = val;
         console.log("----------------------->",collaborators);
         console.log("----------------------->",this.props.note.id);
         user_services.addCollab(collaborators,this.props.note.id).then((data) => {
-            
+            this.props.getNotes();
             console.log('data', data);
         }).catch(error => {
             console.log('searchCollab', error);
@@ -91,14 +90,33 @@ class Collaborators extends Component {
            )
     }
 
+    onDelete=(userId)=>{
+        user_services.deleteCollab(this.props.note.id,userId).then((data) => {
+            this.props.getNotes();
+            console.log('data', data);
+        }).catch(error => {
+            console.log('searchCollab', error);
+        });
+    }
+
     saveCollab=()=>{
-        this.props.getNote();
+        this.props.getNotes();
+        this.props.getCloseStatus(false);
     }
 
     closeDialog=()=>{
-
+        this.setState({
+            collabData:[]
+        });
         this.props.getCloseStatus(false);
         
+    }
+
+    onCancel=()=>{
+        this.setState({
+            collabData:[],
+            cancel:false
+        });
     }
 
     render() {
@@ -110,6 +128,18 @@ class Collaborators extends Component {
               </MenuItem>
             );
           });
+        const collabDetails = this.props.note.collaborators.map((data, index)=>{
+            return (
+                <MenuItem key={index} >
+                <div className="collab-dtl">
+                    <span>{data.email}</span>
+                    <span className='on-close' >
+                    <CloseIcon onClick={() => this.onDelete(data.userId)}/>
+                    </span>
+                </div>
+              </MenuItem>
+              );
+        });
         return (
             <div>
                 <Dialog
@@ -134,6 +164,10 @@ class Collaborators extends Component {
                     <div className="name-txt">{localStorage.getItem('first')} {localStorage.getItem('last')}  (Owner)</div>
                     <div className="email-txt">{localStorage.getItem('email')}</div>
                     </div>
+                    <div>
+                        <MenuList>{collabDetails}</MenuList>
+                    </div>
+                    <div className="search-cnt">
                     <TextField
                         className={classes.underline}
                         name="collaborators"
@@ -141,6 +175,10 @@ class Collaborators extends Component {
                         placeholder = "Search"
                         onChange={this.handleInput}
                         />
+                        <div className="on-close" style={{display:  this.state.cancel ? 'block' : 'none' }}>
+                            <CloseIcon onClick={this.onCancel}/>
+                        </div>
+                    </div>
                 </div>
 
                 <div className='collab-btn'>

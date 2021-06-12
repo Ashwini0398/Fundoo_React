@@ -41,7 +41,8 @@ class Createnotes extends Component {
             title: "",
             note: "",
             responce: false,
-            color:"#ffffff"
+            color:"#ffffff",
+            collaborators:[]
         }
 
     }
@@ -152,7 +153,7 @@ handleInput = (e) => {
                         </div>
                         <div className="icon-open">
                         <div className="icon-open-content">
-                            <Icons colorval="create" getColor={this.handleColor}/>
+                            <Icons colorval="create" val={this.state}  getColor={this.handleColor}/>
                         </div>
                             <div onClick={this.handleClickClose} className="icon-open-close">Close</div>
 

@@ -71,6 +71,11 @@ class UserService{
         return this.axios_service.post(url,data);
     }
 
+    deleteCollab(noteId,collabId){
+        let url = baseURL+"notes/"+noteId+"/removeCollaboratorsNotes/"+collabId;
+        return this.axios_service.delete(url);
+    }
+
     signOut() 
     {
         let url = baseURL+"user/logout";

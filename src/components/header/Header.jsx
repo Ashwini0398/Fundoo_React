@@ -282,16 +282,11 @@ export default function MiniDrawer() {
               onClick={handleMobileMenuOpen}
               color="inherit"
             >
-              {/* <Avatar alt="Remy Sharp" 
-                src="https://lh3.googleusercontent.com/ogw/ADGmqu9fD7T16OvzpM2qMPbPNiicoPEFBxuDORVJpthC=s83-c-mo" /> */}
                 <div className="avatar">
           <Avatar className="profilepic" alt="Ashwini" src="/static/images/avatar/3.jpg" />
           </div>
             </IconButton>
           </div>
-          {/* <div className="avatar">
-          <Avatar className="profilepic" alt="Ashwini" src="/static/images/avatar/3.jpg" />
-          </div> */}
         </Toolbar>
 
       </AppBar>
