@@ -2,16 +2,14 @@ import React, { Component } from 'react';
 import './Icons.scss';
 import AddAlertOutlinedIcon from '@material-ui/icons/AddAlertOutlined';
 import PersonAddOutlinedIcon from '@material-ui/icons/PersonAddOutlined';
-import PaletteOutlinedIcon from '@material-ui/icons/PaletteOutlined';
 import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined';
 import ArchiveOutlinedIcon from '@material-ui/icons/ArchiveOutlined';
-import UnarchiveOutlinedIcon from '@material-ui/icons/UnarchiveOutlined';
 import MoreVertOutlinedIcon from '@material-ui/icons/MoreVertOutlined';
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import Popper from './popper';
 import user_services from '../../services/userService';
-import Dialog from '@material-ui/core/Dialog';
+import Tooltip from '@material-ui/core/Tooltip';
 import Collaborators from '../Collaborators/Collaborators';
 
 class Icons extends Component {
@@ -72,10 +70,14 @@ class Icons extends Component {
             <div>
                 <div className="icon-open-content">
                     <div className="note-icons-hover">
+                    <Tooltip title="Reminder">
                         <AddAlertOutlinedIcon className="i-disp" />
+                    </Tooltip>
                     </div>
                     <div className="note-icons-hover">
+                    <Tooltip title="Collaborator">
                         <PersonAddOutlinedIcon className="i-disp" onClick={this.dialogopen}/>
+                    </Tooltip>
                     </div>
                     <div className="note-icons-hover">
                         <Popper putColor={(Data) => {
@@ -83,16 +85,22 @@ class Icons extends Component {
                         }} />
                     </div>
                     <div className="note-icons-hover">
+                    <Tooltip title="Image">
                         <ImageOutlinedIcon className="i-disp" />
+                    </Tooltip>
                     </div>
                     <div className="note-icons-hover">
+                    <Tooltip title="Archive">
                         <ArchiveOutlinedIcon className="i-disp" onClick={() => {
                             this.props.archive()
                         }} />
+                    </Tooltip>
                     </div>
-                    <div>
+                    <div >
                         <div className="note-icons-hover">
+                        <Tooltip title="More">
                             <MoreVertOutlinedIcon className="i-disp" onClick={this.menuClick} />
+                        </Tooltip>
                         </div>
 
                         <Menu

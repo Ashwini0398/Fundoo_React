@@ -27,6 +27,13 @@
    background-color: rgb(158, 145, 145);
 
 }
+
+.delete-palate:hover .disp-icn 
+{
+   display: block; 
+   color:#292a2b;
+}
+
 .color{
     @include align();
     width: 30px;

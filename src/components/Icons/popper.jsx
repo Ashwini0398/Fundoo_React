@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Popper from '@material-ui/core/Popper';
 import PaletteOutlinedIcon from '@material-ui/icons/PaletteOutlined';
+import Tooltip from '@material-ui/core/Tooltip';
 import './Icons.scss';
 
 
@@ -75,7 +76,9 @@ const useStyles = makeStyles((theme) => ({
   
         return (
             <>
+            <Tooltip title="Color">
             <PaletteOutlinedIcon className="i-disp" onClick={handleClick}/>
+            </Tooltip>
             <Popper className={classes.pop} open={open} anchorEl={anchorEl} placement={'top-start'} transition>
               <div className={classes.paper}>{colors.map(demo)}</div>
             </Popper>

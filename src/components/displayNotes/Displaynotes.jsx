@@ -6,7 +6,7 @@ import user_services from '../../services/userService';
 import Dialog from '@material-ui/core/Dialog';
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
-import MenuItem from '@material-ui/core/MenuItem';
+import Tooltip from '@material-ui/core/Tooltip';
 import Avatar from '@material-ui/core/Avatar';
 
 const styles = {
@@ -85,12 +85,16 @@ class Displaynotes extends Component {
         const { classes } = this.props;
         
         const collabDetails = this.props.value.collaborators.map((data)=>{
-        let str = data.firstName
-        const chars = str.split('');
+        let name = data.firstName
+        const chars = name.split('');
         return (
-            <div>
+            <Tooltip title={name}>
+            <div style={{
+                backgroundColor: this.props.value.color
+            }}>
             <Avatar alt={chars[0]} src={chars[0]} />
             </div>
+            </Tooltip>
             );
         });
         return (
@@ -131,7 +135,7 @@ class Displaynotes extends Component {
                                 }}
                                 colorval="update"
                                 val={this.props.value}
-                                get={() => { this.props.get() }} />
+                                get={() => { this.props.get() }}/>
                         </div>
                     </div>
                 <Dialog
@@ -162,6 +166,11 @@ class Displaynotes extends Component {
                             onChange={this.handleInput}
                         />
                     </div>
+                    <div className="collab-align" style={{
+                            backgroundColor: this.props.value.color
+                        }}>
+                            {collabDetails}                        
+                    </div>
                     <div
                         style={{
                             padding: "10px",
@@ -171,7 +180,7 @@ class Displaynotes extends Component {
                         }}>
                         <div className="dialog-icon">
                             <Icons
-                                 archive={() => {
+                                archive={() => {
                                     this.onArchive();
                                 }}
                                 delete={() => {
@@ -180,6 +189,7 @@ class Displaynotes extends Component {
                                 colorval="update"
                                 val={this.props.value}
                                 get={() => { this.props.get() }}
+                                
                                  />
                         </div>
                         <div className="dialog-close"

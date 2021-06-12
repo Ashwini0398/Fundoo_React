@@ -28,8 +28,6 @@ class Collaborators extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            openStatus:false,
-            collaborators:'',
             collabData:[],
             cancel:false
         }
@@ -37,14 +35,13 @@ class Collaborators extends Component {
     }
     
     handleInput = (e) =>{
-        console.log('search value', e.target.value);
-        this.setState({
-            collaborators:e.target.value,
-            cancel:true
-        });
+        
         let Data = {
             searchWord: e.target.value
         }
+        this.setState({
+            cancel:true
+        });
         if(e.target.value !== ""){
         user_services.searchCollab(Data).then((data) => {
             this.setState({
@@ -101,6 +98,9 @@ class Collaborators extends Component {
 
     saveCollab=()=>{
         this.props.getNotes();
+        this.setState({
+            collabData:[]
+        });
         this.props.getCloseStatus(false);
     }
 
@@ -170,7 +170,6 @@ class Collaborators extends Component {
                     <div className="search-cnt">
                     <TextField
                         className={classes.underline}
-                        name="collaborators"
                         multiline
                         placeholder = "Search"
                         onChange={this.handleInput}
