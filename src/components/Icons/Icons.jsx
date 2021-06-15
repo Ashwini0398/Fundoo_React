@@ -17,7 +17,7 @@ class Icons extends Component {
         super(props);
         this.state = {
             anchorEl: null,
-            openStatus:false
+            openStatus: false
         }
 
     }
@@ -36,32 +36,32 @@ class Icons extends Component {
     }
 
     onSetColor = (color) => {
-        if(this.props.colorval === "update"){
-        let Data = {
-            color: color.code,
-            noteIdList: [this.props.val.id]
-        };
-        user_services.changeColor(Data).then((data) => {
-            console.log('Color Note', data);
-            this.props.get();
-        }).catch(error => {
-            console.log('Color error', error);
-        });
-        console.log("Color", Data);
-    }else{
-        this.props.getColor(color.code);
-    }
-    }
-
-    onSetStatus =(val)=>{
-        this.setState({
-            openStatus:val
-        });
+        if (this.props.colorval === "update") {
+            let Data = {
+                color: color.code,
+                noteIdList: [this.props.val.id]
+            };
+            user_services.changeColor(Data).then((data) => {
+                console.log('Color Note', data);
+                this.props.get();
+            }).catch(error => {
+                console.log('Color error', error);
+            });
+            console.log("Color", Data);
+        } else {
+            this.props.getColor(color.code);
+        }
     }
 
-    dialogopen = ()=>{
+    onSetStatus = (val) => {
         this.setState({
-            openStatus:true
+            openStatus: val
+        });
+    }
+
+    dialogopen = () => {
+        this.setState({
+            openStatus: true
         });
     }
 
@@ -70,14 +70,14 @@ class Icons extends Component {
             <div>
                 <div className="icon-open-content">
                     <div className="note-icons-hover">
-                    <Tooltip title="Reminder">
-                        <AddAlertOutlinedIcon className="i-disp" />
-                    </Tooltip>
+                        <Tooltip title="Reminder">
+                            <AddAlertOutlinedIcon className="i-disp" />
+                        </Tooltip>
                     </div>
                     <div className="note-icons-hover">
-                    <Tooltip title="Collaborator">
-                        <PersonAddOutlinedIcon className="i-disp" onClick={this.dialogopen}/>
-                    </Tooltip>
+                        <Tooltip title="Collaborator">
+                            <PersonAddOutlinedIcon className="i-disp" onClick={this.dialogopen} />
+                        </Tooltip>
                     </div>
                     <div className="note-icons-hover">
                         <Popper putColor={(Data) => {
@@ -85,22 +85,27 @@ class Icons extends Component {
                         }} />
                     </div>
                     <div className="note-icons-hover">
-                    <Tooltip title="Image">
-                        <ImageOutlinedIcon className="i-disp" />
-                    </Tooltip>
+                        <Tooltip title="Image">
+                            <ImageOutlinedIcon className="i-disp" />
+                        </Tooltip>
                     </div>
                     <div className="note-icons-hover">
-                    <Tooltip title="Archive">
-                        <ArchiveOutlinedIcon className="i-disp" onClick={() => {
-                            this.props.archive()
-                        }} />
-                    </Tooltip>
+                        <Tooltip title="Archive">
+                            <ArchiveOutlinedIcon className="i-disp" onClick={() => {
+                                if (this.props.archiveNote === "archiveUpdate") {
+                                    this.props.archive()
+                                }
+                                else {
+                                    this.props.archiveCreate()
+                                }
+                            }} />
+                        </Tooltip>
                     </div>
                     <div >
                         <div className="note-icons-hover">
-                        <Tooltip title="More">
-                            <MoreVertOutlinedIcon className="i-disp" onClick={this.menuClick} />
-                        </Tooltip>
+                            <Tooltip title="More">
+                                <MoreVertOutlinedIcon className="i-disp" onClick={this.menuClick} />
+                            </Tooltip>
                         </div>
 
                         <Menu
@@ -110,7 +115,16 @@ class Icons extends Component {
                             onClose={this.handleClose}
                             open={Boolean(this.state.anchorEl)}
                         >
-                            <MenuItem onClick={() => { this.handleClose(); this.props.delete() }}>Delete Node</MenuItem>
+                            <MenuItem onClick={() => {
+                                if (this.props.deleteNote === "deleteUpdate") {
+                                    this.props.delete()
+                                    this.handleClose()
+                                }
+                                else{
+                                    this.props.deleteCreate()
+                                }
+                            }
+                            }>Delete Node</MenuItem>
                             <MenuItem >Add Label</MenuItem>
                             <MenuItem >Add Drawing</MenuItem>
                             <MenuItem >Make a Copy</MenuItem>
@@ -120,13 +134,13 @@ class Icons extends Component {
 
                     </div>
                 </div>
-                <Collaborators 
-                    open={this.state.openStatus} 
-                    note={this.props.val} 
+                <Collaborators
+                    open={this.state.openStatus}
+                    note={this.props.val}
                     getCloseStatus={(Data) => {
                         this.onSetStatus(Data);
                     }}
-                    getNotes={()=>{this.props.get()}}/>
+                    getNotes={() => { this.props.get() }} />
             </div>
         );
     }

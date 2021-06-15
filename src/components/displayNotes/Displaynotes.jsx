@@ -40,6 +40,9 @@ class Displaynotes extends Component {
         user_services.deleteNote(Data).then((data) => {
             console.log('Delete Note', data);
             this.props.get();
+            this.setState({
+                openStatus:false
+            })
 
         }).catch(error => {
             console.log('Delete error', error);
@@ -52,15 +55,20 @@ class Displaynotes extends Component {
             noteIdList: [this.props.value.id],
             isArchived: true,
         };
+        
         user_services.archiveNote(Data).then((data) => {
             console.log('Archive Note', data);
             this.props.get();
+            this.setState({
+                openStatus:false
+            })
         }).catch(error => {
             console.log('Archive error', error);
         })
         console.log("Archive", Data);
     }
 
+    
     onUpdate = () => {
         let Data = {
             noteId: this.props.value.id,
@@ -90,7 +98,9 @@ class Displaynotes extends Component {
         return (
             <Tooltip title={name}>
             <div style={{
-                backgroundColor: this.props.value.color
+                backgroundColor: this.props.value.color,
+                marginLeft:'5px',
+                marginRight:'4px'
             }}>
             <Avatar alt={chars[0]} src={chars[0]} />
             </div>
@@ -122,7 +132,7 @@ class Displaynotes extends Component {
                         </div>
                     </div>
                     <div className="collab-align">
-                            {collabDetails}                        
+                          {collabDetails}                  
                     </div>
                     <div className="icon-frame">
                         <div className="disp-icn">
@@ -133,6 +143,8 @@ class Displaynotes extends Component {
                                 delete={() => {
                                     this.onDelete();
                                 }}
+                                archiveNote="archiveUpdate"
+                                deleteNote="deleteUpdate"
                                 colorval="update"
                                 val={this.props.value}
                                 get={() => { this.props.get() }}/>
@@ -167,7 +179,8 @@ class Displaynotes extends Component {
                         />
                     </div>
                     <div className="collab-align" style={{
-                            backgroundColor: this.props.value.color
+                            backgroundColor: this.props.value.color,
+                            marginRight: '4px'
                         }}>
                             {collabDetails}                        
                     </div>
@@ -187,6 +200,8 @@ class Displaynotes extends Component {
                                     this.onDelete();
                                 }}
                                 colorval="update"
+                                archive="archiveUpdate"
+                                deleteNote="deleteUpdate"
                                 val={this.props.value}
                                 get={() => { this.props.get() }}
                                 

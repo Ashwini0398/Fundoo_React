@@ -2,9 +2,9 @@
     font-size: $size;
     margin-left: 20px;
 }
-@mixin  align($width) {
+@mixin  align($width,$justify-content) {
     display: flex;
-    justify-content: space-between;
+    justify-content: $justify-content;
     align-items: center;
     width: $width;
 }
@@ -25,9 +25,18 @@
     display: flex;
     justify-content: space-between;
 }
-
+.owner{
+    display: flex
+}
+.avatar-img{
+    margin-left: 22px;
+    margin-top: 7px;
+}
 .name-txt{
-    @include input(larger);
+    @include input(15px);
+    font-weight: bold;
+    margin-left: 20px;
+    margin-top: 7px;
 }
 
 .email-txt{
@@ -40,14 +49,28 @@
 }
 
 .collab-dtl{
-    @include align(350px);
+    @include align(530px,null);
 }
 
 .search-cnt{
-    @include align(300px);
+    @include align(300px,space-between);
+}
+.plus{
+    width: 43px;
+    height: 43px;
+    border: 2px solid #BDBDBD;
+    border-radius: 29px;
+    padding: 8px;
+    color: #BDBDBD;
+    margin-left: 20px;
+}
+.email-disp{
+    margin-left: 5px;
 }
 
 .on-close{
     cursor: pointer;
+    position: absolute;
+    margin-left: 480px;
     color: rgb(199, 175, 175);
 }

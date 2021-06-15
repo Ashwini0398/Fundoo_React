@@ -63,7 +63,7 @@ const useStyles = makeStyles((theme) => ({
                 backgroundColor:val.code,
                 color:val.code,
                 width:'28px',
-                height:'28px',
+                height:'28px', 
                 borderRadius:'15px',
                 cursor:'pointer'
                 }}

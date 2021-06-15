@@ -60,11 +60,16 @@ class Createnotes extends Component {
 
     }
 
-    handleClickClose=()=>{
+    handleClickClose=(state1,state2)=>{
+
+        debugger;
+
         let userData = {
         title: this.state.title,
         description: this.state.note,
-        color:this.state.color
+        color:this.state.color,
+        isArchived:state1,
+        isDeleted:state2
         }
 
     if(!this.state.color){
@@ -72,7 +77,7 @@ class Createnotes extends Component {
         console.log("colordata",userData.color);
     }  
 
-    else if(this.state.title !== "" && this.state.description !== ""){
+    else if(this.state.title !== "" || this.state.description !== ""){
         console.log("success");
         user_services.addNotes(userData).then((data) =>{
             console.log('data after added note',data);
@@ -80,7 +85,8 @@ class Createnotes extends Component {
                 open: true,
                 title: "",
                 note: "",
-                responce: true
+                responce: true,
+                color:""
               },()=>{console.log(this.state);})
             this.props.get();
         })
@@ -105,6 +111,8 @@ class Createnotes extends Component {
               },()=>{console.log(this.state);})
     }
 }
+
+
 
 handleInput = (e) => {
         this.setState({
@@ -153,9 +161,15 @@ handleInput = (e) => {
                         </div>
                         <div className="icon-open">
                         <div className="icon-open-content">
-                            <Icons colorval="create" val={this.state}  getColor={this.handleColor}/>
+                            <Icons colorval="create" 
+                            archiveNote="archiveCreate" 
+                            deleteNote="deleteCreate" 
+                            archiveCreate={()=>this.handleClickClose(true,false)}
+                            deleteCreate={()=>this.handleClickClose(false,true)}
+                             val={this.state}  
+                            getColor={this.handleColor}/>
                         </div>
-                            <div onClick={this.handleClickClose} className="icon-open-close">Close</div>
+                            <div onClick={()=>this.handleClickClose(false,false)} className="icon-open-close">Close</div>
 
                         </div>
                     </div>
