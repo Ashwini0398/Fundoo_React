@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Createnotes from '../createNotes/Createnotes';
-import Header from '../header/Header';
+
+import Header from '../../components/header/Header';
 
 class Dashboard extends Component {
     render() {

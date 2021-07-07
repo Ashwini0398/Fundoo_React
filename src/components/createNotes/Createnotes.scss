@@ -15,7 +15,7 @@
     align-items: center;
 }
 .takenote-open{
-    height: 180px;
+    max-height: 1000px;
     padding-left: 10px;
     min-height: 55px;
 }
@@ -66,7 +66,7 @@
         font-weight: inherit;
 }
 
-@media(max-width:600px){
+@media(width:600px){
     .input-feild{
         width: 100%;
     }
@@ -80,3 +80,25 @@
         width: 90%;
     }
 }
+
+
+@media(width:360px){
+    .icon-open{
+        width: 74%;
+    }
+    .takenote{
+        width: 509px;
+        margin-left: 55px;
+    }
+}
+// @media(min-width:375px){
+//     .takenote{
+//         width: 427px;
+//     }
+//    .takenote-open{
+//     margin-left: 39px;
+//     width: 435px;
+//    }
+   
+// }
+

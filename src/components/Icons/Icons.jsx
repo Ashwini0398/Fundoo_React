@@ -11,13 +11,19 @@ import Popper from './popper';
 import user_services from '../../services/userService';
 import Tooltip from '@material-ui/core/Tooltip';
 import Collaborators from '../Collaborators/Collaborators';
+import image from '../../assests/image.svg';
 
 class Icons extends Component {
     constructor(props) {
         super(props);
         this.state = {
             anchorEl: null,
-            openStatus: false
+            openStatus: false,
+            title: '',
+            description: '',
+            file:'',
+            noteId: '',
+
         }
 
     }
@@ -65,6 +71,42 @@ class Icons extends Component {
         });
     }
 
+    image = (e) => {
+        console.log(e.target.files[0])
+    const formData = new FormData();
+        debugger;
+    formData.append('noteId',Boolean(this.state.noteId) ? this.state.noteId : this.props.id)
+    formData.append('file', e.target.files[0].name)
+    formData.append("title",Boolean(this.state.title) ? this.state.title : this.props.val.title )
+    formData.append("description",Boolean(this.state.description) ? this.state.description : this.props.val.description )
+  
+    // let apiInputData = new FormData();
+
+    // apiInputData.set("title",Boolean(this.props.val.title) ? this.props.val.title : this.props.val.title );
+    // apiInputData.set(
+    //   "description",
+    //   Boolean(this.props.val.description) ? this.props.val.description : this.props.val.description 
+    // );
+    // apiInputData.set("file", e.target.files[0]);
+
+    
+    console.log("FormData",e.target.files[0].name);
+    user_services.updateNote(formData).then((data) => {
+        console.log('Update Note', data);
+    }).catch(error => {
+        console.log('Update error', error);
+    })
+}
+
+
+
+fileChangedHandler = (event) => {
+    event.preventDefault();
+    debugger;
+    console.log(event.target.files[0]);
+    this.setState({ file: event.target.files[0] });
+  };
+
     render() {
         return (
             <div>
@@ -86,7 +128,26 @@ class Icons extends Component {
                     </div>
                     <div className="note-icons-hover">
                         <Tooltip title="Image">
-                            <ImageOutlinedIcon className="i-disp" />
+                            {/* <ImageOutlinedIcon className="i-disp" /> */}
+                            <label htmlFor="icon-button-photo">
+                            {/* <ImageOutlinedIcon className="i-disp"> */}
+                            <input
+                            type="file"
+                            style={{ display: "none" }}
+                            
+                            onChange={(e) => this.image(e)}
+                            ref={(fileUpload) => (this.fileUpload = fileUpload)}
+                            ></input>
+                            <img
+                            className="file"
+                            onClick={() => this.fileUpload.click()}
+                            file={() => this.fileChangedHandler}
+                            src={image}
+                            label="New note with image"
+                            alt="new note"
+                            />
+                            {/* </ImageOutlinedIcon> */}
+                        </label>
                         </Tooltip>
                     </div>
                     <div className="note-icons-hover">
@@ -101,7 +162,7 @@ class Icons extends Component {
                             }} />
                         </Tooltip>
                     </div>
-                    <div >
+                    <div style={{position: 'relative'}}>
                         <div className="note-icons-hover">
                             <Tooltip title="More">
                                 <MoreVertOutlinedIcon className="i-disp" onClick={this.menuClick} />
@@ -137,10 +198,12 @@ class Icons extends Component {
                 <Collaborators
                     open={this.state.openStatus}
                     note={this.props.val}
+                    colaboratorFlag={this.props.colabFlag}
                     getCloseStatus={(Data) => {
                         this.onSetStatus(Data);
                     }}
-                    getNotes={() => { this.props.get() }} />
+                    getNotes={() => { if(this.props.collaboratorNote != "collaboratorCreate")
+                    {this.props.get() }}} />
             </div>
         );
     }

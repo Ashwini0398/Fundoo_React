@@ -60,16 +60,13 @@ class Createnotes extends Component {
 
     }
 
-    handleClickClose=(state1,state2)=>{
-
-        debugger;
+    handleClickClose=(state1)=>{
 
         let userData = {
         title: this.state.title,
         description: this.state.note,
         color:this.state.color,
         isArchived:state1,
-        isDeleted:state2
         }
 
     if(!this.state.color){
@@ -78,6 +75,7 @@ class Createnotes extends Component {
     }  
 
     else if(this.state.title !== "" || this.state.description !== ""){
+        debugger;
         console.log("success");
         user_services.addNotes(userData).then((data) =>{
             console.log('data after added note',data);
@@ -140,12 +138,12 @@ handleInput = (e) => {
                     backgroundColor: this.state.color
                     }}>
                     <div className="input-feild-open">
-                        <div className="input-title-note" >
+                        <div className="input-title-note"  >
                             <TextField 
                                 id="standard-multiline-flexible" 
                                 className={classes.underline,classes.widthInp}
                                 name="title"
-                                multiline rowsMax={2} 
+                                multiline 
                                 placeholder="Title"
                                 onChange={this.handleInput} />
                             <img src={pin} className="pin-inp" alt="" />
@@ -155,7 +153,7 @@ handleInput = (e) => {
                                 id="standard-multiline-flexible" 
                                 className={classes.underline,classes.widthInp}
                                 name="note"
-                                multiline rowsMax={2} 
+                                multiline  
                                 placeholder="Note"
                                 onChange={this.handleInput} />
                         </div>
@@ -164,12 +162,13 @@ handleInput = (e) => {
                             <Icons colorval="create" 
                             archiveNote="archiveCreate" 
                             deleteNote="deleteCreate" 
-                            archiveCreate={()=>this.handleClickClose(true,false)}
-                            deleteCreate={()=>this.handleClickClose(false,true)}
-                             val={this.state}  
+                            collaboratorNote="collaboratorCreate"
+                            archiveCreate={()=>this.handleClickClose(true)}
+                            val={this.state}  
+                            colabFlag="Checked"
                             getColor={this.handleColor}/>
                         </div>
-                            <div onClick={()=>this.handleClickClose(false,false)} className="icon-open-close">Close</div>
+                            <div onClick={()=>this.handleClickClose(false)} className="icon-open-close">Close</div>
 
                         </div>
                     </div>

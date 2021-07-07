@@ -23,7 +23,7 @@ $margin-left: 40px;
 }
 .reg-frame{
     border: 2px solid #EDEEF0;
-    height: 680px;
+    height: 624px;
     border-radius: 10px;
     display: flex;
     margin-top: 49px;
@@ -34,16 +34,18 @@ $margin-left: 40px;
     width: 20%;
     margin: 48px 0px 0px 60px;
     font-size: 25px;
+    font-weight: 600;
 }
 .reg-fundoo-account{
     margin-left: 60px;
     margin-top: 15px;
-    font-size: 20px;
+    font-size: 24px;
     font-weight: 500;
 }
 
 .fundoo{
-    @include text(xx-large,640,1.5);
+    @include text( 14px,640,1.5);
+   
 }
 .f
 {
@@ -100,7 +102,7 @@ $margin-left: 40px;
 }
 .show-checkbox{
     margin-top: $margin-top;
-    margin-left: 45px;
+    margin-left: 59px;
 }
 .div-but-content{
     
@@ -110,6 +112,7 @@ $margin-left: 40px;
     .Text{
         margin-left: 61px;
         color:blue;
+        font-weight: 700;
     }
     .button{
         margin-right:30px;
@@ -165,7 +168,7 @@ $margin-left: 40px;
     height: 660px;
 }
 .div-but-content {
-    margin-top: 3%;
+    margin-top: 15%;
     .Text{
         margin-left: 8%;
     }

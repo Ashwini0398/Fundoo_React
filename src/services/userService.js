@@ -52,6 +52,12 @@ class UserService{
         let url = baseURL+'user/reset';
         return this.axios_service.post(url,data);
     }
+    resetpassword =(data)=>{
+
+        let url = baseURL+'user/reset-password';
+        return this.axios_service.post(url,data);
+    }
+
 
     updateNote(data) 
     {

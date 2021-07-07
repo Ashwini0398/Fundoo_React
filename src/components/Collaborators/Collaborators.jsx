@@ -35,23 +35,32 @@ class Collaborators extends Component {
             collaborators: '',
             collabData: [],
             cancel: false,
-            openPopper: false
+            openPopper: false, title: '',
+            description: '',
+            file: '',
+            noteId: '',
+            color: '',
+            isArchived: '',
+            anchorEl:null,
+            id:''
         }
 
     }
+     
 
     handleInput = (e) => {
-
+       
         let Data = {
             searchWord: e.target.value
         }
         this.setState({
             collaborators: e.target.value,
             cancel: true,
-            openPopper:true
+            openPopper: true
         });
         if (e.target.value !== "") {
             user_services.searchCollab(Data).then((data) => {
+                this.setState({ anchorEl: e.currentTarget})
                 this.setState({
                     collabData: data.data.data.details
                 });
@@ -61,6 +70,53 @@ class Collaborators extends Component {
             });
         }
     }
+     handleClose = () => {
+        this.setState({ anchorEl: null})
+      };
+
+    addColaboratorCreateNote = (val) => {
+
+
+        debugger;
+        let colabDetails = [];
+        let arr = {
+            firstName: val.firstName,
+            lastName: val.lastName,
+            email: val.email,
+            userId: val.userId
+        };
+        colabDetails.push(arr);
+
+        let userData = {
+            title: this.props.note.title,
+            description: this.props.note.note,
+            color: this.props.note.color,
+            isArchived: false,
+            collaberators: colabDetails
+        }
+
+        const formData = new FormData();
+
+        // formData.append('file', e.target.files[0].name)
+        formData.append("title", this.props.note.title);
+        formData.append("description", this.props.note.note);
+        formData.append("color", this.props.note.color);
+        formData.append("isArchived", false);
+        formData.append("collaberators", colabDetails);
+
+        console.log("formData ===== " + formData);
+
+        user_services.addNotes(formData).then((data) => {
+            console.log('data after added note', data);
+        })
+            .catch(error => {
+
+                console.log('Error', error);
+            });
+
+
+    }
+
 
     addColaborator(val) {
         let collaborators = val;
@@ -174,19 +230,18 @@ class Collaborators extends Component {
                             flexDirection: "column",
                             justifyContent: "space-between"
                         }}>
-                        <div
-                            style={{ borderBottom: "2px solid #e4d6d6" }}>
+                        <div style={{ borderBottom: "2px solid #e4d6d6" }}>
                             Collaborators
                         </div>
 
-                        <div>
+                        <div className="collab-details">
                             <div className="owner">
                                 <div className="avatar-img">
-                                    <Avatar  alt="Ashwini" src="/static/images/avatar/3.jpg" />
+                                    <Avatar alt="Ashwini" src="/static/images/avatar/3.jpg" />
                                 </div>
                                 <div className="owner-title">
-                                <div className="name-txt">{localStorage.getItem('first')} {localStorage.getItem('last')}  (Owner)</div>
-                                <div className="email-txt">{localStorage.getItem('email')}</div>
+                                    <div className="name-txt">{localStorage.getItem('first')} {localStorage.getItem('last')}  (Owner)</div>
+                                    <div className="email-txt">{localStorage.getItem('email')}</div>
                                 </div>
                             </div>
                             <div>
@@ -194,7 +249,7 @@ class Collaborators extends Component {
                             </div>
                             <div className="search-cnt">
                                 <div className="plus">
-                                <PersonAddIcon /></div>
+                                    <PersonAddIcon /></div>
                                 <TextField
                                     className={classes.underline}
                                     name="collaborators"
@@ -206,6 +261,34 @@ class Collaborators extends Component {
                                     <CloseIcon onClick={this.onCancel} />
                                 </div>
                             </div>
+                            <div style={{
+                                maxHeight: "350px",
+                                overflow: "scroll"
+                            }}>
+                                <CollabPoper
+                                   id={this.state.openPopper ? 'simple-popover' : undefined}
+                                    List={this.state.collabData}
+                                    open={this.state.openPopper}
+                                    anchorEl={this.state.anchorEl}
+                                    onClose={this.handleClose}
+                                    anchorOrigin={{
+                                        vertical: 'bottom',
+                                        horizontal: 'center',
+                                    }}
+                                    transformOrigin={{
+                                        vertical: 'top',
+                                        horizontal: 'center',
+                                    }}
+                                    collabAdd={(data) => {
+                                        if (this.props.colaboratorFlag === "UnChecked") {
+                                            this.addColaborator(data);
+                                        } else {
+                                            this.addColaboratorCreateNote(data);
+                                        }
+                                    }
+                                    } />
+
+                            </div>
                         </div>
 
                         <div className='collab-btn'>
@@ -214,18 +297,9 @@ class Collaborators extends Component {
                                 <span onClick={this.saveCollab}>Save</span>
                             </div>
                         </div>
+
                     </div>
-                    <div style={{
-                        maxHeight: "350px",
-                        overflow: "scroll"
-                    }}>
-                        <CollabPoper List={this.state.collabData}
-                        open={this.state.openPopper}
-                        collabAdd={(data)=>
-                                    this.addColaborator (data)
-                        }/>
-                       
-                    </div>
+
                 </Dialog>
             </div>
         );

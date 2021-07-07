@@ -77,6 +77,10 @@ const useStyles = makeStyles((theme) => ({
 
     flexShrink: 0,
     whiteSpace: 'nowrap',
+    '@media(Width: 360px)' : {
+      position:'absolute'
+    }
+    
   },
   drawerOpen: {
     width: drawerWidth,

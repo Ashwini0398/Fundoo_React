@@ -5,24 +5,29 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme) => ({
     paper: {
         width: '390px',
-        marginTop: '450px',
         maxHeight: '200px',
-        marginLeft: '330px',
         borderRadius: '3px',
         backgroundColor: 'white',
         overflow: 'scroll',
+        
         // padding: '0px 14px 0px 14px',
+        '@media(minWidth: 780px)' : {
+            width: '80%'
+        }
     },
     pop: {
         zIndex: "10000",
         width: '100 %',
         height: '100 %',
-        position: 'fixed',
-        top: '-90px',
-        left: '-135px',
+        // position: 'absolute',
+        // top: '-180px !imp',
+        // left: '-10px',
         display: 'flex',
         justifyContent: 'center',
-    alignItems: 'center',
+        alignItems: 'center',
+        // position: 'relative',
+        top: '441px',
+        left: '343px',
     }
   }));
 export default function CollabPoper(props) {

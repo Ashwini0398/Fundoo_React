@@ -45,16 +45,7 @@
     }
   }
 
-  
 
-@media screen and (width: 360px) {
-    .text {
-      display:none;
-    }
-    .create{
-      width: 165%;
-    }
-  }
 
   .profile{
     display: flex;
@@ -84,3 +75,20 @@
     margin-top: 20px;
 }
   
+
+@media screen and (width: 360px) {
+  .text {
+    display:none;
+  }
+  .create{
+    width: 165%;
+  }
+}
+@media screen and (width: 3px) {
+  .text {
+    display:none;
+  }
+  .create{
+    width: 165%;
+  }
+}

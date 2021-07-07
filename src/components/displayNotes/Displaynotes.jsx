@@ -27,7 +27,9 @@ class Displaynotes extends Component {
         this.state = {
             openStatus: false,
             title: '',
-            description: ''
+            description: '',
+            file:'',
+
         }
 
     }
@@ -89,6 +91,27 @@ class Displaynotes extends Component {
         }, () => { console.log(this.state); })
     }
 
+
+    addImage =(file)=>{
+        debugger;
+        let apiInputData = new FormData();
+
+        apiInputData.set("title",Boolean(this.state.title) ? this.state.title : this.props.value.title );
+        apiInputData.set(
+          "description",
+          Boolean(this.state.description) ? this.state.description : this.props.value.description 
+        );
+        apiInputData.set("file", Boolean(file) ? this.state.file : "");
+        debugger;
+        console.log("file image", file);
+        user_services.updateNote(apiInputData).then((data) => {
+            console.log('Update Note', data);
+        }).catch(error => {
+            console.log('Update error', error);
+        })
+
+    }
+
     render() {
         const { classes } = this.props;
         
@@ -109,7 +132,8 @@ class Displaynotes extends Component {
         });
         return (
                 <div className="note" style={{
-                    backgroundColor: this.props.value.color
+                    backgroundColor: this.props.value.color,
+                    position: 'relative'
                     }}>
                     <div className="title-pinn"
                         onClick={() => {
@@ -119,6 +143,8 @@ class Displaynotes extends Component {
                                 description: this.props.value.description
                             })
                         }}>
+                        <img src={this.props.value.imageUrl}/>
+                        {/* <img src="https://ssl.gstatic.com/accounts/signup/glif/account.svg" alt="" /> */}
                         <div className="title-note">
                             <div className='title-frame'>
                                 {this.props.value.title}
@@ -143,10 +169,16 @@ class Displaynotes extends Component {
                                 delete={() => {
                                     this.onDelete();
                                 }}
+                                uploadImage={(data) => {
+                                    // this.setState({ file: data });
+                                    this.addImage(data);
+                                  }}
+                                colabFlag="UnChecked"
                                 archiveNote="archiveUpdate"
                                 deleteNote="deleteUpdate"
                                 colorval="update"
                                 val={this.props.value}
+                                id={this.props.value.id}
                                 get={() => { this.props.get() }}/>
                         </div>
                     </div>
@@ -199,8 +231,12 @@ class Displaynotes extends Component {
                                 delete={() => {
                                     this.onDelete();
                                 }}
+                                uploadImage={(data) => {
+                                    // this.setState({ file: data });
+                                    this.addImage(data);
+                                  }}
                                 colorval="update"
-                                archive="archiveUpdate"
+                                archiveNote="archiveUpdate"
                                 deleteNote="deleteUpdate"
                                 val={this.props.value}
                                 get={() => { this.props.get() }}

@@ -60,7 +60,7 @@ export default class Registration extends Component {
             passwordError : !this.validationTest(passwordRegex, this.state.password) ,
             cPasswordError :!this.validationTest(passwordRegex, this.state.cPassword)
         });
-        // console.log("validation---", isValidated);
+    
         if (this.state.flag === 1 
             && !this.state.fNameError 
             && !this.state.lNameError 
@@ -242,10 +242,8 @@ export default class Registration extends Component {
                             </div>
                             <div className="message">Use 8 or more characters with a mix of letters, number & symbols</div>
                             <div className="show-checkbox">
-                                {/* <input type="checkbox" id="radio" onClick={this.handleClick} value="Show password" />
-                                <span>Show password</span> */}
                                 <input type="checkbox" id="radio" onClick={this.handleClick} value="Show password" />
-                                    <label htmlFor="radio"> Show password</label>
+                                <span>Show password</span>
                             </div>
 
                             <div className="div-but-content"><span className="Text Text-Redirect" onClick={this.signinPage}>Sign in Instead</span>

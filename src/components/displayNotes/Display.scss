@@ -85,6 +85,10 @@
     cursor: pointer;
 }
 
+.dialog-icon{
+    position: relative;
+}
+
 @media(max-width:600px){
     .disp-note{
         width: 100%;
