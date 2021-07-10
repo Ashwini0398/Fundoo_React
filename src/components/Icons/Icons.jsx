@@ -79,17 +79,7 @@ class Icons extends Component {
     formData.append('file', e.target.files[0].name)
     formData.append("title",Boolean(this.state.title) ? this.state.title : this.props.val.title )
     formData.append("description",Boolean(this.state.description) ? this.state.description : this.props.val.description )
-  
-    // let apiInputData = new FormData();
-
-    // apiInputData.set("title",Boolean(this.props.val.title) ? this.props.val.title : this.props.val.title );
-    // apiInputData.set(
-    //   "description",
-    //   Boolean(this.props.val.description) ? this.props.val.description : this.props.val.description 
-    // );
-    // apiInputData.set("file", e.target.files[0]);
-
-    
+      
     console.log("FormData",e.target.files[0].name);
     user_services.updateNote(formData).then((data) => {
         console.log('Update Note', data);
@@ -153,7 +143,7 @@ fileChangedHandler = (event) => {
                     <div className="note-icons-hover">
                         <Tooltip title="Archive">
                             <ArchiveOutlinedIcon className="i-disp" onClick={() => {
-                                if (this.props.archiveNote === "archiveUpdate") {
+                                if (this.props.colorval === "update") {
                                     this.props.archive()
                                 }
                                 else {
@@ -202,8 +192,9 @@ fileChangedHandler = (event) => {
                     getCloseStatus={(Data) => {
                         this.onSetStatus(Data);
                     }}
-                    getNotes={() => { if(this.props.collaboratorNote != "collaboratorCreate")
-                    {this.props.get() }}} />
+
+                    getDetails ={this.props.getClose}
+                    getNotes={() =>  this.props.get } />
             </div>
         );
     }

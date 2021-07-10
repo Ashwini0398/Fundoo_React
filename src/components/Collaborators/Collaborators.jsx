@@ -35,21 +35,22 @@ class Collaborators extends Component {
             collaborators: '',
             collabData: [],
             cancel: false,
-            openPopper: false, title: '',
+            openPopper: false,
+             title: '',
             description: '',
             file: '',
             noteId: '',
             color: '',
             isArchived: '',
-            anchorEl:null,
-            id:''
+            anchorEl: null,
+            id: ''
         }
 
     }
-     
+
 
     handleInput = (e) => {
-       
+
         let Data = {
             searchWord: e.target.value
         }
@@ -60,7 +61,7 @@ class Collaborators extends Component {
         });
         if (e.target.value !== "") {
             user_services.searchCollab(Data).then((data) => {
-                this.setState({ anchorEl: e.currentTarget})
+                this.setState({ anchorEl: e.currentTarget })
                 this.setState({
                     collabData: data.data.data.details
                 });
@@ -70,44 +71,39 @@ class Collaborators extends Component {
             });
         }
     }
-     handleClose = () => {
-        this.setState({ anchorEl: null})
-      };
+    handleClose = () => {
+        this.setState({ anchorEl: null })
+    };
 
     addColaboratorCreateNote = (val) => {
 
 
-        debugger;
+        // debugger;
         let colabDetails = [];
-        let arr = {
-            firstName: val.firstName,
-            lastName: val.lastName,
-            email: val.email,
-            userId: val.userId
-        };
-        colabDetails.push(arr);
-
-        let userData = {
-            title: this.props.note.title,
-            description: this.props.note.note,
-            color: this.props.note.color,
-            isArchived: false,
-            collaberators: colabDetails
-        }
+        let arr = [{
+            "firstName": val.firstName,
+            "lastName": val.lastName,
+            "email": val.email,
+            "userId": val.userId
+        }]
 
         const formData = new FormData();
 
         // formData.append('file', e.target.files[0].name)
-        formData.append("title", this.props.note.title);
+        formData.append("title",  this.props.note.title);
         formData.append("description", this.props.note.note);
         formData.append("color", this.props.note.color);
         formData.append("isArchived", false);
-        formData.append("collaberators", colabDetails);
+        formData.append('collaberators', JSON.stringify(arr));
 
         console.log("formData ===== " + formData);
 
         user_services.addNotes(formData).then((data) => {
             console.log('data after added note', data);
+           
+            this.props.getCloseStatus(false);
+            this.props.getDetails();
+            this.props.getNotes(); 
         })
             .catch(error => {
 
@@ -186,13 +182,7 @@ class Collaborators extends Component {
 
     render() {
         const { classes } = this.props;
-        // const userList = this.state.collabData.map((values, index) => {
-        //     return (
-        //         <MenuItem key={index} onClick={() => this.addColaborator(values)}>
-        //             {values.email}
-        //         </MenuItem>
-        //     );
-        // });
+        
         const collabDetails = this.props.note.collaborators.map((data, index) => {
             let name = data.firstName
             const chars = name.split('');
@@ -247,7 +237,7 @@ class Collaborators extends Component {
                             <div>
                                 <MenuList>{collabDetails}</MenuList>
                             </div>
-                            <div className="search-cnt">
+                            <div className="search-cnt" style={{position: 'relative' }}>
                                 <div className="plus">
                                     <PersonAddIcon /></div>
                                 <TextField
@@ -257,38 +247,40 @@ class Collaborators extends Component {
                                     placeholder="Search"
                                     onChange={this.handleInput}
                                 />
+                                {/* <div style={{
+                                    maxHeight: "350px",
+                                    overflow: "scroll"
+                                }}> */}
+                                    <CollabPoper
+                                        // className="colabpop"
+                                        id={this.state.openPopper ? 'simple-popover' : undefined}
+                                        List={this.state.collabData}
+                                        open={this.state.openPopper}
+                                        anchorEl={this.state.anchorEl}
+                                        onClose={this.handleClose}
+                                        // anchorOrigin={{
+                                        //     vertical: 'bottom',
+                                        //     horizontal: 'center',
+                                        // }}
+                                        // transformOrigin={{
+                                        //     vertical: 'top',
+                                        //     horizontal: 'center',
+                                        // }}
+                                        collabAdd={(data) => {
+                                            if (this.props.colaboratorFlag === "UnChecked") {
+                                                this.addColaborator(data);
+                                            } else {
+                                                this.addColaboratorCreateNote(data);
+                                            }
+                                        }
+                                        } />
+
+                               {/* / </div> */}
                                 <div className="on-close" style={{ display: this.state.cancel ? 'block' : 'none' }}>
                                     <CloseIcon onClick={this.onCancel} />
                                 </div>
                             </div>
-                            <div style={{
-                                maxHeight: "350px",
-                                overflow: "scroll"
-                            }}>
-                                <CollabPoper
-                                   id={this.state.openPopper ? 'simple-popover' : undefined}
-                                    List={this.state.collabData}
-                                    open={this.state.openPopper}
-                                    anchorEl={this.state.anchorEl}
-                                    onClose={this.handleClose}
-                                    anchorOrigin={{
-                                        vertical: 'bottom',
-                                        horizontal: 'center',
-                                    }}
-                                    transformOrigin={{
-                                        vertical: 'top',
-                                        horizontal: 'center',
-                                    }}
-                                    collabAdd={(data) => {
-                                        if (this.props.colaboratorFlag === "UnChecked") {
-                                            this.addColaborator(data);
-                                        } else {
-                                            this.addColaboratorCreateNote(data);
-                                        }
-                                    }
-                                    } />
 
-                            </div>
                         </div>
 
                         <div className='collab-btn'>

@@ -93,7 +93,7 @@ class Displaynotes extends Component {
 
 
     addImage =(file)=>{
-        debugger;
+       
         let apiInputData = new FormData();
 
         apiInputData.set("title",Boolean(this.state.title) ? this.state.title : this.props.value.title );
@@ -102,7 +102,7 @@ class Displaynotes extends Component {
           Boolean(this.state.description) ? this.state.description : this.props.value.description 
         );
         apiInputData.set("file", Boolean(file) ? this.state.file : "");
-        debugger;
+        
         console.log("file image", file);
         user_services.updateNote(apiInputData).then((data) => {
             console.log('Update Note', data);
@@ -143,7 +143,14 @@ class Displaynotes extends Component {
                                 description: this.props.value.description
                             })
                         }}>
-                        <img src={this.props.value.imageUrl}/>
+                    {this.props.value.imageUrl !==""
+                    ?
+                    <img src ={"http://fundoonotes.incubation.bridgelabz.com/" + this.props.value.imageUrl}/>
+                    :
+                    <img style={{display:'none'}} />
+                     }
+                            {/* check conditional render if imageurl not present dont use img tag okk  */}
+                      
                         {/* <img src="https://ssl.gstatic.com/accounts/signup/glif/account.svg" alt="" /> */}
                         <div className="title-note">
                             <div className='title-frame'>
@@ -174,8 +181,6 @@ class Displaynotes extends Component {
                                     this.addImage(data);
                                   }}
                                 colabFlag="UnChecked"
-                                archiveNote="archiveUpdate"
-                                deleteNote="deleteUpdate"
                                 colorval="update"
                                 val={this.props.value}
                                 id={this.props.value.id}

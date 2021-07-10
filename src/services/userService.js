@@ -19,6 +19,7 @@ class UserService{
 
     addNotes(data){
         let url = baseURL+'notes/addNotes';
+        debugger;
          return this.axios_service.post(url,data);
      }
 
@@ -29,6 +30,7 @@ class UserService{
     
     addNotes(data){
         let url = baseURL+'notes/addNotes';
+        debugger;
          return this.axios_service.post(url,data);
      }
 

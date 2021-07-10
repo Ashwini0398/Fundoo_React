@@ -32,7 +32,7 @@ import Createnotes from '../createNotes/Createnotes';
 import NoteMaker from '../noteMaker/NoteMaker';
 import { useEffect } from 'react';
 import Trash from '../trash/trash';
-import Archive from '../archive/archive';
+import Archive from '../../Pages/archive/archive';
 import {
   Switch,
   Link

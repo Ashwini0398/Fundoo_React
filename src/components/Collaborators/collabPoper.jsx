@@ -19,15 +19,15 @@ const useStyles = makeStyles((theme) => ({
         zIndex: "10000",
         width: '100 %',
         height: '100 %',
-        // position: 'absolute',
+        position: 'absolute !imp',
         // top: '-180px !imp',
         // left: '-10px',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
         // position: 'relative',
-        top: '441px',
-        left: '343px',
+        // top: '441px',
+        // left: '343px',
     }
   }));
 export default function CollabPoper(props) {

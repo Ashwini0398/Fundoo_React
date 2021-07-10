@@ -74,8 +74,8 @@ class Createnotes extends Component {
         console.log("colordata",userData.color);
     }  
 
-    else if(this.state.title !== "" || this.state.description !== ""){
-        debugger;
+    else if(this.state.open !== true && (this.state.title !== "" || this.state.description !== "")){
+      
         console.log("success");
         user_services.addNotes(userData).then((data) =>{
             console.log('data after added note',data);
@@ -160,13 +160,16 @@ handleInput = (e) => {
                         <div className="icon-open">
                         <div className="icon-open-content">
                             <Icons colorval="create" 
-                            archiveNote="archiveCreate" 
-                            deleteNote="deleteCreate" 
-                            collaboratorNote="collaboratorCreate"
                             archiveCreate={()=>this.handleClickClose(true)}
                             val={this.state}  
                             colabFlag="Checked"
-                            getColor={this.handleColor}/>
+                            getClose={() => {
+                                this.setState({
+                                    open: true
+                                   })
+                            }}
+                            getColor={this.handleColor}
+                            />
                         </div>
                             <div onClick={()=>this.handleClickClose(false)} className="icon-open-close">Close</div>
 

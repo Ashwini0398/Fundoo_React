@@ -20,6 +20,17 @@
         width: 220px;
     }
 }
+.makeStyles-pop-27{
+    position: absolute !important;
+    top: 64% !important;
+    left: 36% !important;
+    // top: calc(100% - 275px)!important;
+    // left: calc(100% - 840px) !important;
+    @media only screen and (max-width: 600px){
+        top: calc(100% - 275px)!important;
+        left: calc(100% - 840px) !important;
+    }
+}
 .collab-data{
     width: 350px;
     display: flex;
