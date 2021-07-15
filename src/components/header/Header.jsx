@@ -31,7 +31,7 @@ import Createnotes from '../createNotes/Createnotes';
 //import Displaynotes from '../displayNotes/Displaynotes';
 import NoteMaker from '../noteMaker/NoteMaker';
 import { useEffect } from 'react';
-import Trash from '../trash/trash';
+import Trash from '../../Pages/trash/trash';
 import Archive from '../../Pages/archive/archive';
 import {
   Switch,

@@ -5,6 +5,9 @@ import './Login.scss';
 import user_services from '../../services/userService';
 import Button from '@material-ui/core/Button';
 import { Redirect } from "react-router-dom";
+import Snackbar from '@material-ui/core/Snackbar';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
 
 
 let UserNameRegex = /^([a-zA-Z0-9]*[+._-]*[a-zA-Z0-9]+@[a-zA-Z]+.{3}[a-zA-z.]*[a-zA-z]{2})+$/;
@@ -22,6 +25,7 @@ export default class Login extends Component {
             showPassword: false,
             redirect: '',
             flag: 0,
+            open:false
         }
     }
 
@@ -61,6 +65,7 @@ export default class Login extends Component {
     }
 
     Next = () => {
+        this.setState({open : true});
         this.setState({
             uNameError: this.validationTest(UserNameRegex, this.state.uName) === true ? false : true,
             passwordError: this.validationTest(passwordRegex, this.state.password) === true ? false : true
@@ -110,6 +115,14 @@ export default class Login extends Component {
     }
     handleClick = (e) => {
         this.setState({ showpassword: !this.state.showpassword })
+
+    }
+    handleClose = (event, reason) =>{
+        if (reason === 'clickaway') {
+            return;
+          }
+      
+          this.setState({open :false});
 
     }
     render() {
@@ -183,6 +196,26 @@ export default class Login extends Component {
                             <Button className="button" variant="contained" color="primary" href="#contained-buttons" onClick={this.Next}>
                                 Next
                             </Button>
+                            <Snackbar
+                                anchorOrigin={{
+                                    vertical: 'bottom',
+                                    horizontal: 'left',
+                                }}
+                                open={this.state.open}
+                                autoHideDuration={6000}
+                                onClose={this.handleClose}
+                                message=" LOGIN SUCESSFUL "
+                                action={
+                                    <React.Fragment>
+                                        <Button color="secondary" size="small" onClick={this.handleClose}>
+                                            UNDO
+                                        </Button>
+                                        <IconButton size="small" aria-label="close" color="inherit" onClick={this.handleClose}>
+                                            <CloseIcon fontSize="small" />
+                                        </IconButton>
+                                    </React.Fragment>
+                                }
+                            />
                         </div>
 
                     </form>

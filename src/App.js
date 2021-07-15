@@ -7,10 +7,10 @@ import {
   Link
 } from "react-router-dom";
 import {ProtectedRoute} from '../src/services/auth/protectedRoutes';
-import Registration from './components/registration/Registration';
-import Dashboard from './components/dashboard/Dashboard';
-import ForgetPassword from '../src/components/ForgetPassword/ForgetPassword';
-import ResetPassword from '../src/components/ResetPassword/ResetPassword';
+import Registration from './Pages/registration/Registration';
+import Dashboard from '../src/Pages/dashboard/Dashboard';
+import ForgetPassword from '../src/Pages/ForgetPassword/ForgetPassword';
+import ResetPassword from './Pages/ResetPassword/ResetPassword';
 
 
 function App() {
@@ -23,11 +23,7 @@ function App() {
     <ProtectedRoute path={'/dashboard'} component={Dashboard}/>
     <Route path="/ForgetPassword" component={ForgetPassword}></Route>
     <Route path="/resetpassword" component={ResetPassword}></Route>
-    {/* <BrowserRouter>
-            <ProtectedRoute	path={"/dashboard/notes"} component={Dashboard}/>
-            <ProtectedRoute	path={"/dashboard/trash"} component={Trash}/>
-            <ProtectedRoute	path={"/dashboard/archive"} component={Archive}/>
-    </BrowserRouter> */}
+  
     </Switch>
     {/* <Login/> */}
  
